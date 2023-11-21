@@ -60,7 +60,7 @@ export default function App({ Component, pageProps }: any) {
                 />
                 <link rel="icon" href="/favicon.ico" />
               </Head>
-              <BubbleChat
+              {/* <BubbleChat
                 chatflowid="a633fc84-a322-460b-a6ea-359eb4786c73"
                 apiHost="https://jobgpt.onrender.com"
                 theme={{
@@ -101,7 +101,7 @@ export default function App({ Component, pageProps }: any) {
                     },
                   },
                 }}
-              />
+              /> */}
               <Toaster position="top-right" />
               <Component {...pageProps} />
             </Layout>

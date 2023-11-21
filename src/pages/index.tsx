@@ -22,7 +22,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="bg-white dark:bg-black mt-[60px]">
+      <main className="  bg-[#f4f7fc] dark:bg-black mt-[60px]">
         <MainPage />
       </main>
     </>

@@ -16,7 +16,7 @@ const Footer: FC<FooterProps> = () => {
   const isLogged = useSelector((state: any) => state.user.isLogged);
   return (
     <footer className="bg-brand-blue-450 dark:bg-[#111111] dark:border-t dark:border-brand-gray-100 py-12">
-      <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 sm:gap-6 gap-y-8 w-full pbox">
+      <div className="grid lg:grid-cols-5 sm:grid-cols-2 grid-cols-1 sm:gap-6 gap-y-8 w-full pbox">
         <div className="flex flex-col items-start text-white dark:text-brand-dark-50">
           <span className=" text-lg font-medium leading-7 mb-4 cursor-pointer">
             JobLab.ai
@@ -31,7 +31,7 @@ const Footer: FC<FooterProps> = () => {
             Bobby@JobLab.ai
           </Link>
         </div>
-        {/* {
+        {
           <div className="flex flex-col gap-y-7 text-white dark:text-brand-dark-50 ">
             <h4 className="text-lg font-medium cursor-pointer">
               For Candidates
@@ -48,8 +48,8 @@ const Footer: FC<FooterProps> = () => {
               </li>
             </ul>
           </div>
-        } */}
-        {/* {
+        }
+        {
           <div className="flex flex-col gap-y-7 text-white dark:text-brand-dark-50 ">
             <h4 className="text-lg font-medium cursor-pointer">
               For Employers
@@ -66,7 +66,7 @@ const Footer: FC<FooterProps> = () => {
               </li>
             </ul>
           </div>
-        } */}
+        }
         <div className="flex flex-col gap-y-7 text-white dark:text-brand-dark-50 ">
           <h4 className="text-lg font-medium cursor-pointer">Our Roadmap</h4>
           <ul className="space-y-[15px] text-sm font-light">

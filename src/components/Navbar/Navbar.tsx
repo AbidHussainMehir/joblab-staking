@@ -168,7 +168,7 @@ const Navbar: FC<NavbarProps> = () => {
               borderRadius: "50px",
               color: "#2870d5",
               // backgroundColor: "rgb(7 24 196 / var(--tw-bg-opacity))",
-              backgroundColor: "#e2eaf8",
+              backgroundColor: theme === "dark" ? "#61a5fa" : "#e2eaf8 ",
             }}
           />
         </div>

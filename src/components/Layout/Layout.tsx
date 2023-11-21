@@ -12,7 +12,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       <div className="relative flex flex-col w-full min-h-screen">
         <Navbar />
         <main className="grow">{children}</main>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </>
   );
