@@ -36,7 +36,7 @@ export default function App({ Component, pageProps }: any) {
     <ThirdwebProvider
       activeChain={BaseGoerli}
       clientId="c17ae4f3c142f9fb029795f0c6de71ef"
-      autoConnect={false}
+      autoConnect={true}
       supportedWallets={[
         metamaskWallet({ recommended: true }),
         coinbaseWallet(),

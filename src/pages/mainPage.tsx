@@ -26,7 +26,7 @@
 //     </div>
 //   );
 // };
-
+import { ethers } from "ethers";
 import {
   Tabs,
   TabsHeader,
@@ -35,18 +35,68 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 import { useTheme } from "next-themes";
-import { ConnectWallet } from "@thirdweb-dev/react";
+import {
+  ConnectWallet,
+  Web3Button,
+  useAddress,
+  useContract,
+  useContractRead,
+  useTokenBalance,
+} from "@thirdweb-dev/react";
 import { useEffect, useState } from "react";
 import { Input } from "@/components/FormElements";
 import Analytics from "./analytics";
 import axios from "axios";
 import Header from "@/components/Typography/Header";
 import LineChart from "@/components/chart/line-chart";
+import {
+  REWARD_TOKEN_ADDRESSES,
+  STAKE_CONTRACT_ADDRESSES,
+  STAKE_TOKEN_ADDRESSES,
+} from "./../components/addresses";
 function MainPage() {
   const { theme, setTheme } = useTheme();
   useEffect(() => {
     setTheme("light");
   }, []);
+
+
+   const address = useAddress();
+
+   const { contract: stakeTokenContract } = useContract(
+     STAKE_TOKEN_ADDRESSES,
+     "token"
+   );
+   const { contract: rewardTokenContract } = useContract(
+     REWARD_TOKEN_ADDRESSES,
+     "token"
+   );
+   const { contract: stakeContract } = useContract(
+     STAKE_CONTRACT_ADDRESSES,
+     "custom"
+   );
+
+   const {
+     data: stakeInfo,
+     refetch: refetchStakeInfo,
+     isLoading: loadingStakeInfo,
+   } = useContractRead(stakeContract, "getStakeInfo", [address]);
+
+   const { data: stakeTokenBalance, isLoading: loadingStakeTokenBalance } =
+     useTokenBalance(stakeTokenContract, address);
+
+   const { data: rewardTokenBalance, isLoading: loadingRewardTokenBalance } =
+     useTokenBalance(rewardTokenContract, address);
+
+   useEffect(() => {
+     setInterval(() => {
+       refetchStakeInfo();
+     }, 10000);
+   }, []);
+
+
+
+
   const [jobCount, setCompanies] = useState<any[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
   const [active, setActive] = useState("presale");
@@ -94,6 +144,23 @@ function MainPage() {
     },
   ];
 
+  const valChangeHandler = (e: any) => {
+     
+    console.log(e.target.value)
+     setStakeAmount(e.target.value); // Update the state with the entered value
+   };
+
+  
+
+    const { data: tokenBalance, isLoading: loadingTokenBalance } =
+    useTokenBalance(rewardTokenContract, address);
+  
+  const { data: StaketokenBalance, isLoading: StakeloadingTokenBalance } =
+    useTokenBalance(stakeTokenContract, address);
+    
+
+   const [stakeAmount, setStakeAmount] = useState<Number>("");
+
   return (
     <div className=" flex justify-center lg:px-[150px]  bg-[#f4f7fc] dark:bg-black p-[20px] ">
       <Tabs value={active}>
@@ -134,38 +201,7 @@ function MainPage() {
                     )}
                     {subTitle && <span className="mt-2 mb-2">{subTitle}</span>}
                     {desc && <>{desc}</>}
-                    <ConnectWallet
-                      theme={theme === "dark" ? "dark" : "light"}
-                      switchToActiveChain={true}
-                      modalTitle={"Web3 Connect"}
-                      modalSize={"wide"}
-                      welcomeScreen={{
-                        img: {
-                          src: "https://api.joblab.ai/uploads/logos/chat-company.png",
-                          width: 180,
-                          height: 180,
-                        },
 
-                        title: "Your gateway to decentralized jobs",
-                        subtitle:
-                          "Connect your wallet to join the future of work",
-                      }}
-                      modalTitleIconUrl={
-                        "https://api.joblab.ai/uploads/logos/chat-company.png"
-                      }
-                      // className="bg-brand-blue-450"
-                      className={`py-2 px-5 text-[15px] rounded-[50px] border font-light bg-brand-blue-150  text-brand-blue-100 `}
-                      style={{
-                        fontSize: "15px",
-                        fontWeight: 300,
-                        margin: "0px 0px 0px 10px",
-                        borderRadius: "10px",
-                        color: "#2870d5",
-                        // backgroundColor: "rgb(7 24 196 / var(--tw-bg-opacity))",
-                        backgroundColor:
-                          theme === "dark" ? "#61a5fa" : "#e2eaf8 ",
-                      }}
-                    />
                     <div className="flex-grow" />
                   </>
                 )}
@@ -177,27 +213,55 @@ function MainPage() {
                     {/* <button className="px-5 py-3  bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
                       Stake
                     </button> */}
-                    <Input
-                      props={{
-                        // ...register("fullName"),
-                        placeholder: "0",
-                      }}
-                      // error={errors.fullName?.message}
-                      // error={
-                      //   touchedFields?.fullName
-                      //     ? errors.fullName?.message || ""
-                      //     : undefined
-                      // }
+                    <input
+                      onChange={valChangeHandler}
+                      placeholder="0"
+                      value={stakeAmount}
+                      type="Number"
                     />
-                    <button className="px-4 py-2  bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 dark:text-white  text-brand-dark-100 text-base rounded-lg">
-                      Stake!
-                    </button>
-                    <button className="px-4 py-2  bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 dark:text-white text-brand-dark-100 text-base rounded-lg">
-                      Unstake!
-                    </button>
-                    <button className="px-4 py-2  bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 dark:text-white  text-brand-dark-100 text-base rounded-lg">
-                      Claim rewards!
-                    </button>
+                    <Web3Button
+                      contractAddress={STAKE_CONTRACT_ADDRESSES}
+                      action={async (contract: any) => {
+                        await stakeTokenContract?.erc20.setAllowance(
+                          STAKE_CONTRACT_ADDRESSES,
+                          stakeAmount
+                        );
+
+                        await contract.call("stake", [
+                          ethers.utils.parseEther(stakeAmount),
+                        ]);
+                        setStakeAmount(0);
+                      }}
+                      onSuccess={() => console.log("Success")}
+                    >
+                      Stake
+                    </Web3Button>
+                    <Web3Button
+                      contractAddress={STAKE_CONTRACT_ADDRESSES}
+                      action={async (contract: any) => {
+                        await contract.call("withdraw", [
+                          ethers.utils.parseEther(stakeAmount),
+                        ]);
+                        setStakeAmount(0);
+                      }}
+                      onSuccess={() => {
+                        console.log("Unstaked Successfully");
+                      }}
+                    >
+                      Unstake
+                    </Web3Button>
+                    <Web3Button
+                      contractAddress={STAKE_CONTRACT_ADDRESSES}
+                      action={async (contract: any) => {
+                        await contract.call("claimRewards");
+                        setStakeAmount(0)
+                      }}
+                      onSuccess={() =>
+                        console.log("Reward Received Successfully")
+                      }
+                    >
+                      Claim
+                    </Web3Button>
                   </div>
                 )}
                 {value == "staking" && (
@@ -207,7 +271,7 @@ function MainPage() {
                         Stake token balance
                       </span>
                       <span className="text-brand-black-50 dark:text-white">
-                        0.0
+                        {StaketokenBalance?.displayValue}
                       </span>
                     </div>
 
@@ -216,7 +280,7 @@ function MainPage() {
                         Reward token balance
                       </span>
                       <span className="text-brand-black-50 dark:text-white">
-                        0.0
+                        {tokenBalance?.displayValue}
                       </span>
                     </div>
                     <div className="px-6 py-4 grid grid-cols-1  bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
@@ -224,7 +288,9 @@ function MainPage() {
                         Staked amount
                       </span>
                       <span className="text-brand-black-50 dark:text-white">
-                        0.0
+                        {stakeInfo && stakeInfo[0]
+                          ? ethers.utils.formatEther(stakeInfo[0])
+                          : 0}
                       </span>
                     </div>
                     <div className="px-6 py-4 grid grid-cols-1 bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
@@ -232,7 +298,9 @@ function MainPage() {
                         Current reward
                       </span>
                       <span className="text-brand-black-50 dark:text-white">
-                        0.0
+                        {stakeInfo && stakeInfo[0]
+                          ? ethers.utils.formatEther(stakeInfo[1])
+                          : 0}
                       </span>
                     </div>
                   </div>
