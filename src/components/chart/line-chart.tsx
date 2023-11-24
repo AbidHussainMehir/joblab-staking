@@ -40,7 +40,7 @@ export default function LineChart({ data }: { data: any }) {
     },
     { maxCategory: "", maxJobs: -1 }
   );
-  console.log("data:data:", data);
+  // console.log("data:data:", data);
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
