@@ -60,42 +60,38 @@ function MainPage() {
     setTheme("light");
   }, []);
 
+  const address = useAddress();
 
-   const address = useAddress();
+  const { contract: stakeTokenContract } = useContract(
+    STAKE_TOKEN_ADDRESSES,
+    "token"
+  );
+  const { contract: rewardTokenContract } = useContract(
+    REWARD_TOKEN_ADDRESSES,
+    "token"
+  );
+  const { contract: stakeContract } = useContract(
+    STAKE_CONTRACT_ADDRESSES,
+    "custom"
+  );
 
-   const { contract: stakeTokenContract } = useContract(
-     STAKE_TOKEN_ADDRESSES,
-     "token"
-   );
-   const { contract: rewardTokenContract } = useContract(
-     REWARD_TOKEN_ADDRESSES,
-     "token"
-   );
-   const { contract: stakeContract } = useContract(
-     STAKE_CONTRACT_ADDRESSES,
-     "custom"
-   );
+  const {
+    data: stakeInfo,
+    refetch: refetchStakeInfo,
+    isLoading: loadingStakeInfo,
+  } = useContractRead(stakeContract, "getStakeInfo", [address]);
 
-   const {
-     data: stakeInfo,
-     refetch: refetchStakeInfo,
-     isLoading: loadingStakeInfo,
-   } = useContractRead(stakeContract, "getStakeInfo", [address]);
+  const { data: stakeTokenBalance, isLoading: loadingStakeTokenBalance } =
+    useTokenBalance(stakeTokenContract, address);
 
-   const { data: stakeTokenBalance, isLoading: loadingStakeTokenBalance } =
-     useTokenBalance(stakeTokenContract, address);
+  const { data: rewardTokenBalance, isLoading: loadingRewardTokenBalance } =
+    useTokenBalance(rewardTokenContract, address);
 
-   const { data: rewardTokenBalance, isLoading: loadingRewardTokenBalance } =
-     useTokenBalance(rewardTokenContract, address);
-
-   useEffect(() => {
-     setInterval(() => {
-       refetchStakeInfo();
-     }, 10000);
-   }, []);
-
-
-
+  useEffect(() => {
+    setInterval(() => {
+      refetchStakeInfo();
+    }, 10000);
+  }, []);
 
   const [jobCount, setCompanies] = useState<any[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
@@ -145,21 +141,17 @@ function MainPage() {
   ];
 
   const valChangeHandler = (e: any) => {
-     
-    console.log(e.target.value)
-     setStakeAmount(e.target.value); // Update the state with the entered value
-   };
+    console.log(e.target.value);
+    setStakeAmount(e.target.value); // Update the state with the entered value
+  };
 
-  
-
-    const { data: tokenBalance, isLoading: loadingTokenBalance } =
+  const { data: tokenBalance, isLoading: loadingTokenBalance } =
     useTokenBalance(rewardTokenContract, address);
-  
+
   const { data: StaketokenBalance, isLoading: StakeloadingTokenBalance } =
     useTokenBalance(stakeTokenContract, address);
-    
 
-   const [stakeAmount, setStakeAmount] = useState<Number>("");
+  const [stakeAmount, setStakeAmount] = useState<any>("");
 
   return (
     <div className=" flex justify-center lg:px-[150px]  bg-[#f4f7fc] dark:bg-black p-[20px] ">
@@ -254,7 +246,7 @@ function MainPage() {
                       contractAddress={STAKE_CONTRACT_ADDRESSES}
                       action={async (contract: any) => {
                         await contract.call("claimRewards");
-                        setStakeAmount(0)
+                        setStakeAmount(0);
                       }}
                       onSuccess={() =>
                         console.log("Reward Received Successfully")
