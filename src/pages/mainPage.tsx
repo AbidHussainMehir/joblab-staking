@@ -49,7 +49,7 @@ function MainPage() {
   }, []);
   const [jobCount, setCompanies] = useState<any[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
-
+  const [active, setActive] = useState("presale");
   const getCompanies = async () => {
     try {
       setLoading(true);
@@ -96,7 +96,7 @@ function MainPage() {
 
   return (
     <div className=" flex justify-center lg:px-[150px]  bg-[#f4f7fc] dark:bg-black p-[20px] ">
-      <Tabs value="presale">
+      <Tabs value={active}>
         <TabsHeader
           className="bg-transparent grid lg:grid-cols-4 grid-cols-2 gap-2"
           indicatorProps={{
@@ -108,8 +108,12 @@ function MainPage() {
               key={value}
               value={value}
               // style={{ borderRadius: "10px" }}
-              className="
-              py-2 px-5  text-brand-black-50  bg-[#e2eaf8]  rounded"
+              className={
+                active === value
+                  ? "text-white py-2 px-5    bg-[#e2eaf8]  rounded"
+                  : "text-brand-black-50 py-2 px-5    bg-[#e2eaf8]  rounded"
+              }
+              onClick={() => setActive(value)}
             >
               {label}
             </Tab>
@@ -217,7 +221,7 @@ function MainPage() {
                     </div>
                     <div className="px-6 py-4 grid grid-cols-1  bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
                       <span className="text-brand-black-50 dark:text-white font-medium">
-                        Stakeed amount
+                        Staked amount
                       </span>
                       <span className="text-brand-black-50 dark:text-white">
                         0.0
