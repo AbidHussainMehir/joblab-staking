@@ -96,6 +96,9 @@ function MainPage() {
   const [jobCount, setCompanies] = useState<any[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
   const [active, setActive] = useState("presale");
+  const [stakeAmount, setStakeAmount] = useState<any>("");
+  const [unstakeAmount, setUnstakeAmount] = useState<any>("");
+
   const getCompanies = async () => {
     try {
       setLoading(true);
@@ -140,9 +143,12 @@ function MainPage() {
     },
   ];
 
-  const valChangeHandler = (e: any) => {
+  const stakeChangeHandler = (e: any) => {
     console.log(e.target.value);
-    setStakeAmount(e.target.value); // Update the state with the entered value
+    setStakeAmount(e.target.value);
+  };
+  const unstakeChangeHandler = (e: any) => {
+    setUnstakeAmount(e.target.value);
   };
 
   const { data: tokenBalance, isLoading: loadingTokenBalance } =
@@ -150,8 +156,6 @@ function MainPage() {
 
   const { data: StaketokenBalance, isLoading: StakeloadingTokenBalance } =
     useTokenBalance(stakeTokenContract, address);
-
-  const [stakeAmount, setStakeAmount] = useState<any>("");
 
   return (
     <div className=" flex justify-center lg:px-[150px]  bg-[#f4f7fc] dark:bg-black p-[20px] ">
@@ -181,7 +185,7 @@ function MainPage() {
         <TabsBody className="mt-[20px]">
           {data.map(({ value, desc, title, subTitle }) => (
             <TabPanel key={value} value={value}>
-              <div className="rounded-lg flex flex-col items-center justify-center hover:shadow-container bg-white dark:bg-transparent dark:border dark:border-brand-dark-100 border border-black  pt-5 px-8 pb-8">
+              <div className="rounded-lg flex flex-col items-center justify-center hover:shadow-containerbg-[#f4f7fc] dark:bg-transparent dark:border dark:border-brand-dark-100 border border-black  pt-5 px-8 pb-8">
                 {(value == "presale" ||
                   value == "staking" ||
                   value == "governance") && (
@@ -201,16 +205,11 @@ function MainPage() {
                   Purchase Jobs Token
                 </button> */}
                 {value == "staking" && (
-                  <div className="grid lg:grid-cols-4 md:grid-cols-2  sm:grid-cols-1 gap-x-2">
+                  <div className="grid lg:grid-cols-3 md:grid-cols-2  sm:grid-cols-1 gap-x-2 gap-y-2">
                     {/* <button className="px-5 py-3  bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
                       Stake
                     </button> */}
-                    <input
-                      onChange={valChangeHandler}
-                      placeholder="0"
-                      value={stakeAmount}
-                      type="Number"
-                    />
+
                     <Web3Button
                       contractAddress={STAKE_CONTRACT_ADDRESSES}
                       action={async (contract: any) => {
@@ -257,43 +256,94 @@ function MainPage() {
                   </div>
                 )}
                 {value == "staking" && (
-                  <div className="grid lg:grid-cols-4  md:grid-cols-2 sm:grid-cols-1 gap-x-2 mt-5 ">
-                    <div className="px-6 py-4 grid grid-cols-1 bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
-                      <span className="text-brand-black-50 dark:text-white font-medium">
-                        Stake token balance
+                  <div className="grid  w-full lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-1 gap-x-2  mt-5  ">
+                    <div className="px-6 py-4 grid grid-cols-1 border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
+                      <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
+                        Stake Token
+                      </span>
+                      <span className="text-brand-black-50 dark:text-white text-[13px] font-medium">
+                        $SCOIN
                       </span>
                       <span className="text-brand-black-50 dark:text-white">
                         {StaketokenBalance?.displayValue}
                       </span>
                     </div>
 
-                    <div className="px-6 py-4 grid grid-cols-1  bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
-                      <span className="text-brand-black-50 dark:text-white font-medium">
-                        Reward token balance
+                    <div className="px-6 py-4 grid grid-cols-1  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
+                      <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
+                        Reward Token
+                      </span>
+                      <span className="text-brand-black-50 dark:text-white text-[13px] font-medium">
+                        $REWARD
                       </span>
                       <span className="text-brand-black-50 dark:text-white">
                         {tokenBalance?.displayValue}
                       </span>
                     </div>
-                    <div className="px-6 py-4 grid grid-cols-1  bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
-                      <span className="text-brand-black-50 dark:text-white font-medium">
-                        Staked amount
+                    <div className="px-6 py-4 grid grid-cols-1  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
+                      <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
+                        Earn Reward Token
                       </span>
-                      <span className="text-brand-black-50 dark:text-white">
-                        {stakeInfo && stakeInfo[0]
-                          ? ethers.utils.formatEther(stakeInfo[0])
-                          : 0}
-                      </span>
+                      <div className="flex justify-center  items-center flex-col py-[25px]">
+                        <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
+                          Stake Token
+                        </span>
+                        <span className="text-brand-black-50 dark:text-white text-[13px] font-medium">
+                          {stakeInfo && stakeInfo[0]
+                            ? ethers.utils.formatEther(stakeInfo[0])
+                            : 0}
+                          &nbsp;$SCOIN
+                        </span>
+                      </div>
+                      <div className="grid lg:grid-cols-2 grid-cols-1 gap-x-2 gap-y-3">
+                        <input
+                          onChange={stakeChangeHandler}
+                          placeholder="0"
+                          value={stakeAmount}
+                          type="Number"
+                          className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
+                        />
+                        <input
+                          onChange={unstakeChangeHandler}
+                          placeholder="0"
+                          value={unstakeAmount}
+                          type="Number"
+                          className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
+                        />
+                        <button
+                          className={`py-2 px-5 text-[15px] rounded-[10px] border font-light bg-brand-blue-150 text-brand-black-50 font-medium `}
+                        >
+                          Stake
+                        </button>
+                        <button
+                          className={`py-2 px-5 text-[15px] rounded-[10px] border font-light bg-brand-blue-150 text-brand-black-50 font-medium`}
+                        >
+                          Unstake
+                        </button>
+                      </div>
+                      {/* <span className="text-brand-black-50 dark:text-white "></span> */}
                     </div>
-                    <div className="px-6 py-4 grid grid-cols-1 bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
-                      <span className="text-brand-black-50 dark:text-white font-medium">
-                        Current reward
-                      </span>
-                      <span className="text-brand-black-50 dark:text-white">
-                        {stakeInfo && stakeInfo[0]
-                          ? ethers.utils.formatEther(stakeInfo[1])
-                          : 0}
-                      </span>
+                    <div className="px-6 py-4 flex justify-center items-center flex-col border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
+                      <div className="flex justify-center items-center flex-col mt-[30px]">
+                        <span className="text-brand-black-50 dark:text-white font-medium">
+                          Reward Token:
+                        </span>
+
+                        <span className="text-brand-black-50 dark:text-white">
+                          {stakeInfo && stakeInfo[0]
+                            ? ethers.utils.formatEther(stakeInfo[1])
+                            : 0}
+                        </span>
+                        <span className="text-brand-black-50 dark:text-white text-[13px] font-medium">
+                          $REWARD
+                        </span>
+                      </div>
+                      <div className="flex-grow" />
+                      <button
+                        className={`py-2 px-5 text-[15px] w-full rounded-[10px] border font-light bg-brand-blue-150 text-brand-black-50 font-medium `}
+                      >
+                        Claim
+                      </button>
                     </div>
                   </div>
                 )}
