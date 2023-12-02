@@ -26,6 +26,8 @@
 //     </div>
 //   );
 // };
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { ethers } from "ethers";
 import {
   Tabs,
@@ -159,6 +161,18 @@ function MainPage() {
 
   return (
     <div className=" flex justify-center lg:px-[150px]  bg-[#f4f7fc] dark:bg-black p-[20px] ">
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Tabs value={active}>
         <TabsHeader
           className="bg-transparent grid lg:grid-cols-4 grid-cols-2 gap-2"
@@ -210,7 +224,7 @@ function MainPage() {
                       Stake
                     </button> */}
 
-                    <Web3Button
+                    {/* <Web3Button
                       contractAddress={STAKE_CONTRACT_ADDRESSES}
                       action={async (contract: any) => {
                         await stakeTokenContract?.erc20.setAllowance(
@@ -252,7 +266,7 @@ function MainPage() {
                       }
                     >
                       Claim
-                    </Web3Button>
+                    </Web3Button> */}
                   </div>
                 )}
                 {value == "staking" && (
@@ -310,16 +324,83 @@ function MainPage() {
                           type="Number"
                           className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
                         />
-                        <button
-                          className={`py-2 px-5 text-[15px] rounded-[10px] border font-light bg-brand-blue-150 text-brand-black-50 font-medium `}
+                        <Web3Button
+                          contractAddress={STAKE_CONTRACT_ADDRESSES}
+                          action={async (contract: any) => {
+                            await stakeTokenContract?.erc20.setAllowance(
+                              STAKE_CONTRACT_ADDRESSES,
+                              stakeAmount
+                            );
+
+                            await contract.call("stake", [
+                              ethers.utils.parseEther(stakeAmount),
+                            ]);
+                            setStakeAmount(0);
+                          }}
+                          onSuccess={() => {
+                            toast.success("Tokens Staked Successfully", {
+                              position: "top-center",
+                              autoClose: 5000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "light",
+                            });
+                          }}
+                          onError={(e) => {
+                            console.log(e);
+                            toast.error(e.message, {
+                              position: "top-center",
+                              autoClose: 5000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "light",
+                            });
+                          }}
                         >
                           Stake
-                        </button>
-                        <button
-                          className={`py-2 px-5 text-[15px] rounded-[10px] border font-light bg-brand-blue-150 text-brand-black-50 font-medium`}
+                        </Web3Button>
+                        <Web3Button
+                          contractAddress={STAKE_CONTRACT_ADDRESSES}
+                          action={async (contract: any) => {
+                            await contract.call("withdraw", [
+                              ethers.utils.parseEther(unstakeAmount),
+                            ]);
+                            setUnstakeAmount(0);
+                          }}
+                          onSuccess={() => {
+                            toast.success("Tokens Unstaked Successfully.", {
+                              position: "top-center",
+                              autoClose: 5000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "light",
+                            });
+                          }}
+                          onError={(e) => {
+                            console.log(e);
+                            toast.error(e.message, {
+                              position: "top-center",
+                              autoClose: 5000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "light",
+                            });
+                          }}
                         >
                           Unstake
-                        </button>
+                        </Web3Button>
                       </div>
                       {/* <span className="text-brand-black-50 dark:text-white "></span> */}
                     </div>
@@ -339,16 +420,53 @@ function MainPage() {
                         </span>
                       </div>
                       <div className="flex-grow" />
-                      <button
-                        className={`py-2 px-5 text-[15px] w-full rounded-[10px] border font-light bg-brand-blue-150 text-brand-black-50 font-medium `}
+                      <Web3Button
+                        contractAddress={STAKE_CONTRACT_ADDRESSES}
+                        action={async (contract: any) => {
+                          await contract.call("claimRewards");
+                          setStakeAmount(0);
+                        }}
+                        onSuccess={() => {
+                          toast.success("Reward Claim Successfully.", {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                          });
+                        }}
+                        onError={(e) => {
+                          console.log(e.message);
+                          toast.error(e.message, {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                          });
+                        }}
                       >
                         Claim
-                      </button>
+                      </Web3Button>
                     </div>
                   </div>
                 )}
                 {value == "presale" && (
                   <>
+                    {/* <iframe
+                      src="https://embed.ipfscdn.io/ipfs/bafybeigdie2yyiazou7grjowoevmuip6akk33nqb55vrpezqdwfssrxyfy/erc20.html?contract=0x73FAA99F01B2dDc07a464198d85a8FD95dB4700f&chain=%7B%22name%22%3A%22Mumbai%22%2C%22chain%22%3A%22Polygon%22%2C%22rpc%22%3A%5B%22https%3A%2F%2Fmumbai.rpc.thirdweb.com%2F%24%7BTHIRDWEB_API_KEY%7D%22%5D%2C%22nativeCurrency%22%3A%7B%22name%22%3A%22MATIC%22%2C%22symbol%22%3A%22MATIC%22%2C%22decimals%22%3A18%7D%2C%22shortName%22%3A%22maticmum%22%2C%22chainId%22%3A80001%2C%22testnet%22%3Atrue%2C%22slug%22%3A%22mumbai%22%2C%22icon%22%3A%7B%22url%22%3A%22ipfs%3A%2F%2FQmcxZHpyJa8T4i63xqjPYrZ6tKrt55tZJpbXcjSDKuKaf9%2Fpolygon%2F512.png%22%2C%22width%22%3A512%2C%22height%22%3A512%2C%22format%22%3A%22png%22%7D%7D&clientId=087b7c5f4e347e01a44bd1b8e60f1b41&theme=light&primaryColor=blue"
+                      width="600px"
+                      height="600px"
+                      style={{ maxWidth: "100%" }}
+                      frameBorder="0"
+                      title="Your Embedded Iframe"
+                    ></iframe> */}
                     <div className="text-[14px] space-x-1 flex items-center mt-[10px]">
                       <span>Token Price:$ 0.25</span>
                     </div>
