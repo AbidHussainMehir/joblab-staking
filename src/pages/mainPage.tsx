@@ -43,6 +43,8 @@ import {
   useContractRead,
   useTokenBalance,
 } from "@thirdweb-dev/react";
+import { useNetwork } from "@thirdweb-dev/react";
+
 import { useEffect, useState } from "react";
 import { Input } from "@/components/FormElements";
 import Analytics from "./analytics";
@@ -54,6 +56,7 @@ import {
   STAKE_CONTRACT_ADDRESSES,
   STAKE_TOKEN_ADDRESSES,
 } from "./../components/addresses";
+import { Switch } from "@headlessui/react";
 function MainPage() {
   const { theme, setTheme } = useTheme();
   useEffect(() => {
@@ -94,11 +97,11 @@ function MainPage() {
   }, []);
 
   const [jobCount, setCompanies] = useState<any[]>([]);
-  const [loading, setLoading] = useState<Boolean>(true);
+  const [loading1, setLoading] = useState<Boolean>(true);
   const [active, setActive] = useState("presale");
   const [stakeAmount, setStakeAmount] = useState<any>("");
   const [unstakeAmount, setUnstakeAmount] = useState<any>("");
-
+  const [selectedNetwork, setNetwork] = useState(false);
   const getCompanies = async () => {
     try {
       setLoading(true);
@@ -115,7 +118,7 @@ function MainPage() {
   useEffect(() => {
     getCompanies();
   }, []);
-  const data = [
+  const data1 = [
     {
       label: "Presale",
       value: "presale",
@@ -157,6 +160,19 @@ function MainPage() {
   const { data: StaketokenBalance, isLoading: StakeloadingTokenBalance } =
     useTokenBalance(stakeTokenContract, address);
 
+  const [{ error }, switchNetwork] = useNetwork();
+  const changeToMainNet = async () => {
+    if (!switchNetwork) {
+      console.log("can not switch network");
+      return;
+    }
+    const result = await switchNetwork(1);
+    if (result.data) {
+      console.log("Switched to Mumbai testnet successfully");
+    } else {
+      console.log("Error switching to Mumbai testnet", result.error);
+    }
+  };
   return (
     <div className=" flex justify-center lg:px-[150px]  bg-[#f4f7fc] dark:bg-black p-[20px] ">
       <Tabs value={active}>
@@ -166,7 +182,7 @@ function MainPage() {
             className: "dark:bg-blue-400 bg-blue-500  rounded ",
           }}
         >
-          {data.map(({ label, value }) => (
+          {data1.map(({ label, value }) => (
             <Tab
               key={value}
               value={value}
@@ -183,7 +199,7 @@ function MainPage() {
           ))}
         </TabsHeader>
         <TabsBody className="mt-[20px]">
-          {data.map(({ value, desc, title, subTitle }) => (
+          {data1.map(({ value, desc, title, subTitle }) => (
             <TabPanel key={value} value={value}>
               <div className="rounded-lg flex flex-col items-center justify-center hover:shadow-containerbg-[#f4f7fc] dark:bg-transparent dark:border dark:border-brand-dark-100 border border-black  pt-5 px-8 pb-8">
                 {(value == "presale" ||
@@ -205,55 +221,96 @@ function MainPage() {
                   Purchase Jobs Token
                 </button> */}
                 {value == "staking" && (
-                  <div className="grid lg:grid-cols-3 md:grid-cols-2  sm:grid-cols-1 gap-x-2 gap-y-2">
-                    {/* <button className="px-5 py-3  bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
+                  <>
+                    <div className="flex p-2">
+                      <span
+                        className={`flex items-center gap-2 text-lg font-medium ${
+                          selectedNetwork
+                            ? "text-brand-gray-500 dark:text-white "
+                            : " text-brand-blue-450 "
+                        }`}
+                      >
+                        {/* <UserCircleIcon
+                          className={`w-7 h-7 ${
+                            employers
+                              ? "text-brand-gray-500 dark:text-white "
+                              : " text-brand-blue-450 "
+                          }`}
+                        /> */}
+                        Ethereum
+                      </span>
+                      <Switch
+                        checked={selectedNetwork}
+                        onChange={() => setNetwork(!selectedNetwork)}
+                        className={`m-2 relative inline-flex bg-brand-blue-450 h-7 w-14 items-center rounded-full`}
+                      >
+                        <span className="sr-only">Type</span>
+                        <span
+                          className={`${
+                            selectedNetwork ? "translate-x-8" : "translate-x-1"
+                          } inline-block h-5 w-5 transform rounded-full bg-white transition`}
+                        />
+                      </Switch>
+                      <span
+                        className={`flex items-center gap-2 text-lg font-medium ${
+                          selectedNetwork
+                            ? "text-brand-blue-450"
+                            : "  text-brand-gray-500 dark:text-white "
+                        }`}
+                      >
+                        Polygon
+                      </span>
+                    </div>
+                    <div className="grid lg:grid-cols-3 md:grid-cols-2  sm:grid-cols-1 gap-x-2 gap-y-2">
+                      {/* <button className="px-5 py-3  bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
                       Stake
                     </button> */}
 
-                    <Web3Button
-                      contractAddress={STAKE_CONTRACT_ADDRESSES}
-                      action={async (contract: any) => {
-                        await stakeTokenContract?.erc20.setAllowance(
-                          STAKE_CONTRACT_ADDRESSES,
-                          stakeAmount
-                        );
+                      <Web3Button
+                        contractAddress={STAKE_CONTRACT_ADDRESSES}
+                        action={async (contract: any) => {
+                          await stakeTokenContract?.erc20.setAllowance(
+                            STAKE_CONTRACT_ADDRESSES,
+                            stakeAmount
+                          );
 
-                        await contract.call("stake", [
-                          ethers.utils.parseEther(stakeAmount),
-                        ]);
-                        setStakeAmount(0);
-                      }}
-                      onSuccess={() => console.log("Success")}
-                    >
-                      Stake
-                    </Web3Button>
-                    <Web3Button
-                      contractAddress={STAKE_CONTRACT_ADDRESSES}
-                      action={async (contract: any) => {
-                        await contract.call("withdraw", [
-                          ethers.utils.parseEther(stakeAmount),
-                        ]);
-                        setStakeAmount(0);
-                      }}
-                      onSuccess={() => {
-                        console.log("Unstaked Successfully");
-                      }}
-                    >
-                      Unstake
-                    </Web3Button>
-                    <Web3Button
-                      contractAddress={STAKE_CONTRACT_ADDRESSES}
-                      action={async (contract: any) => {
-                        await contract.call("claimRewards");
-                        setStakeAmount(0);
-                      }}
-                      onSuccess={() =>
-                        console.log("Reward Received Successfully")
-                      }
-                    >
-                      Claim
-                    </Web3Button>
-                  </div>
+                          await contract.call("stake", [
+                            ethers.utils.parseEther(stakeAmount),
+                          ]);
+                          setStakeAmount(0);
+                        }}
+                        onSuccess={() => console.log("Success")}
+                      >
+                        Stake
+                      </Web3Button>
+                      <Web3Button
+                        contractAddress={STAKE_CONTRACT_ADDRESSES}
+                        action={async (contract: any) => {
+                          await contract.call("withdraw", [
+                            ethers.utils.parseEther(stakeAmount),
+                          ]);
+                          setStakeAmount(0);
+                        }}
+                        onSuccess={() => {
+                          console.log("Unstaked Successfully");
+                        }}
+                      >
+                        Unstake
+                      </Web3Button>
+                      <Web3Button
+                        contractAddress={STAKE_CONTRACT_ADDRESSES}
+                        action={async (contract: any) => {
+                          await contract.call("claimRewards");
+                          setStakeAmount(0);
+                        }}
+                        onSuccess={() =>
+                          console.log("Reward Received Successfully")
+                        }
+                      >
+                        Claim
+                      </Web3Button>
+                    </div>
+                  </>
                 )}
                 {value == "staking" && (
                   <div className="grid  w-full lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-1 gap-x-2  mt-5  ">
