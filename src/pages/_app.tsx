@@ -18,7 +18,7 @@ import {
   trustWallet,
 } from "@thirdweb-dev/react";
 import { PersistGate } from "redux-persist/integration/react";
-import { BaseGoerli } from "@thirdweb-dev/chains";
+import { BaseGoerli, Mumbai } from "@thirdweb-dev/chains";
 
 export default function App({ Component, pageProps }: any) {
   const replaceName = () => {
@@ -34,7 +34,7 @@ export default function App({ Component, pageProps }: any) {
   }, []);
   return (
     <ThirdwebProvider
-      activeChain={BaseGoerli}
+      activeChain={Mumbai}
       clientId="c17ae4f3c142f9fb029795f0c6de71ef"
       autoConnect={true}
       supportedWallets={[
