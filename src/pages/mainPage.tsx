@@ -162,19 +162,20 @@ function MainPage() {
   const { data: StaketokenBalance, isLoading: StakeloadingTokenBalance } =
     useTokenBalance(stakeTokenContract, address);
 
-  const [{ error }, switchNetwork] = useNetwork();
-  const changeToMainNet = async () => {
-    if (!switchNetwork) {
-      console.log("can not switch network");
-      return;
-    }
-    const result = await switchNetwork(1);
-    if (result.data) {
-      console.log("Switched to Mumbai testnet successfully");
-    } else {
-      console.log("Error switching to Mumbai testnet", result.error);
-    }
-  };
+  const [{ data, error }, switchNetwork] = useNetwork();
+  console.log("data:", data?.chain?.chainId);
+  // const changeToMainNet = async () => {
+  //   if (!switchNetwork) {
+  //     console.log("can not switch network");
+  //     return;
+  //   }
+  //   const result = await switchNetwork(data?.chain?.chainId === 1 ? 137 : 1);
+  //   if (result.data) {
+  //     console.log(`Switched network successfully`);
+  //   } else {
+  //     console.log("Error switching network", result.error);
+  //   }
+  // };
   return (
     <div className=" flex justify-center lg:px-[150px]  bg-[#f4f7fc] dark:bg-black p-[20px] ">
       <ToastContainer
