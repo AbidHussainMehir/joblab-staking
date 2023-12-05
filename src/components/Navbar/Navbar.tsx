@@ -86,7 +86,7 @@ const Navbar: FC<NavbarProps> = () => {
     <nav className="fixed top-0 z-[9999] shadow-container bg-white dark:bg-[#000000] dark:border-b dark:border-brand-dark-100 dark:bg-opacity-95 w-full">
       <div
         className={`pbox pb-[2px] pt-[4px] lg:grid lg:grid-cols-[1fr,280px]
-         flex items-center justify-between gap-x-10`}
+         flex items-center justify-between`}
       >
         <div className="grid grid-cols-[180px,1fr]">
           <section className="flex items-center">
@@ -103,7 +103,7 @@ const Navbar: FC<NavbarProps> = () => {
                   : "text-brand-blue-450 border-brand-blue-450 "
               }  font-medium pb-1 pt-1  `}
             >
-              Web3 Protocol Dashboard
+              JobLab Token Dashboard
             </span>
           </div>
         </div>

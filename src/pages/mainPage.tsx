@@ -57,11 +57,16 @@ import {
   REWARD_TOKEN_ADDRESSES,
   STAKE_CONTRACT_ADDRESSES,
   STAKE_TOKEN_ADDRESSES,
-  ETH_REWARD_TOKEN_ADDRESSES, ETH_STAKE_CONTRACT_ADDRESSES , ETH_STAKE_TOKEN_ADDRESSES
+  ETH_REWARD_TOKEN_ADDRESSES,
+  ETH_STAKE_CONTRACT_ADDRESSES,
+  ETH_STAKE_TOKEN_ADDRESSES,
 } from "./../components/addresses";
 import { Switch } from "@headlessui/react";
 import ChainContext from "./context/Chain";
-
+import Image from "next/image";
+import logo from "../../public/assets/mainlogo.svg";
+import EthermLogo from "../../public/assets/full-ethereum-logo-grey.png";
+import PolygonLogo from "../../public/assets/full-polygon-logo.png";
 function MainPage() {
   const [jobCount, setCompanies] = useState<any[]>([]);
   const [loading1, setLoading] = useState<Boolean>(true);
@@ -69,10 +74,14 @@ function MainPage() {
   const [stakeAmount, setStakeAmount] = useState<any>("");
   const [unstakeAmount, setUnstakeAmount] = useState<any>("");
   const [selectedNetwork, setNetwork] = useState(false);
-  const [stakeAddress  , setStakeAddress] = useState(STAKE_CONTRACT_ADDRESSES)
-  const [rewardTokenAddres, setRewardTokenAddress] = useState(REWARD_TOKEN_ADDRESSES)
-  const [stakingTokenAddress , setStakingTokenAddress] = useState(STAKE_TOKEN_ADDRESSES)
-const { selectedChain, setSelectedChain } = useContext(ChainContext);
+  const [stakeAddress, setStakeAddress] = useState(STAKE_CONTRACT_ADDRESSES);
+  const [rewardTokenAddres, setRewardTokenAddress] = useState(
+    REWARD_TOKEN_ADDRESSES
+  );
+  const [stakingTokenAddress, setStakingTokenAddress] = useState(
+    STAKE_TOKEN_ADDRESSES
+  );
+  const { selectedChain, setSelectedChain } = useContext(ChainContext);
   const { theme, setTheme } = useTheme();
   useEffect(() => {
     setTheme("light");
@@ -84,15 +93,13 @@ const { selectedChain, setSelectedChain } = useContext(ChainContext);
       setStakeAddress(STAKE_CONTRACT_ADDRESSES);
       setRewardTokenAddress(REWARD_TOKEN_ADDRESSES);
       setStakingTokenAddress(STAKE_TOKEN_ADDRESSES);
-      setSelectedChain("mumbai")
-    }
-    else {
-      setSelectedChain("goerli")
+      setSelectedChain("mumbai");
+    } else {
+      setSelectedChain("goerli");
       setStakeAddress(ETH_STAKE_CONTRACT_ADDRESSES);
       setRewardTokenAddress(ETH_REWARD_TOKEN_ADDRESSES);
       setStakingTokenAddress(ETH_STAKE_TOKEN_ADDRESSES);
     }
-
   }, [selectedNetwork]);
 
   const { contract: stakeTokenContract } = useContract(
@@ -103,10 +110,7 @@ const { selectedChain, setSelectedChain } = useContext(ChainContext);
     rewardTokenAddres,
     "token"
   );
-  const { contract: stakeContract } = useContract(
-    stakeAddress,
-    "custom"
-  );
+  const { contract: stakeContract } = useContract(stakeAddress, "custom");
 
   const {
     data: stakeInfo,
@@ -146,9 +150,7 @@ const { selectedChain, setSelectedChain } = useContext(ChainContext);
     {
       label: "Presale",
       value: "presale",
-      title: "Welcome to JobLab Presale",
-      desc: `
-      JobLab Presale represents an exclusive opportunity for early supporters and contributors to secure JobLab tokens before the public launch. Participants in the presale gain a strategic advantage by accessing tokens at a discounted rate, setting the stage for potential future growth.`,
+      title: "JOBS Pre-Sale Token Drop",
     },
     {
       label: "Staking",
@@ -216,7 +218,7 @@ const { selectedChain, setSelectedChain } = useContext(ChainContext);
         <TabsHeader
           className="bg-transparent grid lg:grid-cols-4 grid-cols-2 gap-2"
           indicatorProps={{
-            className: "dark:bg-blue-400 bg-blue-500  rounded ",
+            className: "dark:bg-blue-400 bg-brand-blue-450  rounded ",
           }}
         >
           {data1.map(({ label, value }) => (
@@ -226,7 +228,7 @@ const { selectedChain, setSelectedChain } = useContext(ChainContext);
               // style={{ borderRadius: "10px" }}
               className={
                 active === value
-                  ? "text-white py-2 px-5    bg-[#e2eaf8]  rounded"
+                  ? "text-white py-2 px-5 bg-brand-blue-450  rounded"
                   : "text-brand-black-50 py-2 px-5    bg-[#e2eaf8]  rounded"
               }
               onClick={() => setActive(value)}
@@ -239,9 +241,7 @@ const { selectedChain, setSelectedChain } = useContext(ChainContext);
           {data1.map(({ value, desc, title, subTitle }) => (
             <TabPanel key={value} value={value}>
               <div className="rounded-lg flex flex-col items-center justify-center hover:shadow-containerbg-[#f4f7fc] dark:bg-transparent dark:border dark:border-brand-dark-100 border border-black  pt-5 px-8 pb-8">
-                {(value == "presale" ||
-                  value == "staking" ||
-                  value == "governance") && (
+                {(value == "staking" || value == "governance") && (
                   <>
                     {title && (
                       <h4 className="text-[25px] text-center text-brand-black-50 dark:text-brand-dark-50 mb-1 leading-6 font-medium">
@@ -260,22 +260,20 @@ const { selectedChain, setSelectedChain } = useContext(ChainContext);
                 {value == "staking" && (
                   <>
                     <div className="flex p-2">
-                      <span
+                      {/* <span
                         className={`flex items-center gap-2 text-lg font-medium ${
                           selectedNetwork
                             ? "text-brand-gray-500 dark:text-white "
                             : " text-brand-blue-450 "
                         }`}
                       >
-                        {/* <UserCircleIcon
-                          className={`w-7 h-7 ${
-                            employers
-                              ? "text-brand-gray-500 dark:text-white "
-                              : " text-brand-blue-450 "
-                          }`}
-                        /> */}
                         Ethereum
-                      </span>
+                      </span> */}
+                      <Image
+                        alt="company"
+                        src={EthermLogo}
+                        className="object-contain w-20"
+                      />
                       <Switch
                         checked={selectedNetwork}
                         onChange={() => setNetwork(!selectedNetwork)}
@@ -288,7 +286,12 @@ const { selectedChain, setSelectedChain } = useContext(ChainContext);
                           } inline-block h-5 w-5 transform rounded-full bg-white transition`}
                         />
                       </Switch>
-                      <span
+                      <Image
+                        alt="company"
+                        src={PolygonLogo}
+                        className="object-contain w-20"
+                      />
+                      {/* <span
                         className={`flex items-center gap-2 text-lg font-medium ${
                           selectedNetwork
                             ? "text-brand-blue-450"
@@ -296,7 +299,7 @@ const { selectedChain, setSelectedChain } = useContext(ChainContext);
                         }`}
                       >
                         Polygon
-                      </span>
+                      </span> */}
                     </div>
                     <div className="grid lg:grid-cols-3 md:grid-cols-2  sm:grid-cols-1 gap-x-2 gap-y-2">
                       {/* <button className="px-5 py-3  bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
@@ -539,34 +542,70 @@ const { selectedChain, setSelectedChain } = useContext(ChainContext);
                 )}
                 {value == "presale" && (
                   <>
-                    {/* <iframe
-                      src="https://embed.ipfscdn.io/ipfs/bafybeigdie2yyiazou7grjowoevmuip6akk33nqb55vrpezqdwfssrxyfy/erc20.html?contract=0x73FAA99F01B2dDc07a464198d85a8FD95dB4700f&chain=%7B%22name%22%3A%22Mumbai%22%2C%22chain%22%3A%22Polygon%22%2C%22rpc%22%3A%5B%22https%3A%2F%2Fmumbai.rpc.thirdweb.com%2F%24%7BTHIRDWEB_API_KEY%7D%22%5D%2C%22nativeCurrency%22%3A%7B%22name%22%3A%22MATIC%22%2C%22symbol%22%3A%22MATIC%22%2C%22decimals%22%3A18%7D%2C%22shortName%22%3A%22maticmum%22%2C%22chainId%22%3A80001%2C%22testnet%22%3Atrue%2C%22slug%22%3A%22mumbai%22%2C%22icon%22%3A%7B%22url%22%3A%22ipfs%3A%2F%2FQmcxZHpyJa8T4i63xqjPYrZ6tKrt55tZJpbXcjSDKuKaf9%2Fpolygon%2F512.png%22%2C%22width%22%3A512%2C%22height%22%3A512%2C%22format%22%3A%22png%22%7D%7D&clientId=087b7c5f4e347e01a44bd1b8e60f1b41&theme=light&primaryColor=blue"
-                      width="600px"
-                      height="600px"
-                      style={{ maxWidth: "100%" }}
-                      frameBorder="0"
-                      title="Your Embedded Iframe"
-                    ></iframe> */}
-                    <div className="text-[14px] space-x-1 flex items-center mt-[10px]">
-                      <span>Token Price:$ 0.25</span>
-                    </div>
-                    <div className="text-[14px] space-x-1 flex items-center">
-                      <span>Supply:50M</span>
-                    </div>
-                    <div className="text-[14px] space-x-1 flex items-center">
-                      <span>Market Cap: $1M</span>
-                    </div>
-                    <div className="text-[14px] space-x-1 flex items-center">
-                      <span>Claim phase I: $0.25 by January 1,2024</span>
-                    </div>
-                    <div className="text-[14px] space-x-1 flex items-center">
-                      <span>Claim phase II: $0.3 by Fabruary 1,2024</span>
+                    {title && (
+                      <h4 className="text-[25px] text-center text-brand-black-50 dark:text-brand-dark-50 mb-1 leading-6 font-medium">
+                        {title}
+                      </h4>
+                    )}
+                    <div className="px-6 py-4 grid grid-cols-1 ">
+                      <div className="flex justify-center">
+                        <Image
+                          alt="company"
+                          src={EthermLogo}
+                          className="object-contain w-20"
+                        />
+                        <Switch
+                          checked={selectedNetwork}
+                          onChange={() => setNetwork(!selectedNetwork)}
+                          className={`m-2 relative inline-flex bg-brand-blue-450 h-7 w-14 items-center rounded-full`}
+                        >
+                          <span className="sr-only">Type</span>
+                          <span
+                            className={`${
+                              selectedNetwork
+                                ? "translate-x-8"
+                                : "translate-x-1"
+                            } inline-block h-5 w-5 transform rounded-full bg-white transition`}
+                          />
+                        </Switch>
+                        <Image
+                          alt="company"
+                          src={PolygonLogo}
+                          className="object-contain w-20"
+                        />
+                      </div>
+                      <div className="pbox py-5 my-[45px] relative  mx-auto w-full h-full max-w-[100px]  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
+                        <Image
+                          alt="company"
+                          src={logo}
+                          fill
+                          className="object-contain "
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 flex items-center justify-center gap-x-2 mt-[20px] ">
+                        <input
+                          // onChange={unstakeChangeHandler}
+                          placeholder="0"
+                          // value={unstakeAmount}
+                          type="Number"
+                          className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
+                        />
+                        <button
+                          // className="  border  "
+                          className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
+                        >
+                          Buy JOBS
+                        </button>
+                      </div>
+                      <span className="mt-3 text-center dark:text-white text-[green]">
+                        2500000.0 minted
+                      </span>
                     </div>
                   </>
                 )}
                 {value == "analytics" && (
                   <div className="w-full bg-[#f4f7fc] dark:bg-[#0000]">
-                    <div className=" pb-[100px] pbox mt-14">
+                    <div className="pb-[100px] pbox mt-14">
                       <Header title="Total Jobs Count" />
                       <div className="flex flex-col gap-y-10 mt-5">
                         <div className="flex items-center justify-center p-5 bg-white dark:bg-transparent dark:border dark:border-brand-dark-100 h-[300px] shadow-container rounded-lg">

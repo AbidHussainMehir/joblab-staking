@@ -55,7 +55,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ openMenu, setOpenMenu, size }) => {
                     fill
                     className="object-contain"
                   />
-                </div>{" "}
+                </div>
               </Link>
               <button
                 onClick={() => {
