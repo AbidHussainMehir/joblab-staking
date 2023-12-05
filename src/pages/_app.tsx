@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import { persistor, store } from "@/redux/store";
 import Head from "next/head";
 import { BubbleChat } from "flowise-embed-react";
-import { useEffect } from "react";
+import { useEffect , useState } from "react";
 import Document from "next/document";
 import {
   ThirdwebProvider,
@@ -17,10 +17,14 @@ import {
   walletConnect,
   trustWallet,
 } from "@thirdweb-dev/react";
+import ChainContext from "./context/Chain";
+
 import { PersistGate } from "redux-persist/integration/react";
-import { BaseGoerli, Mumbai } from "@thirdweb-dev/chains";
+import { BaseGoerli, Mumbai, Goerli } from "@thirdweb-dev/chains";
 
 export default function App({ Component, pageProps }: any) {
+  const [selectedChain, setSelectedChain] = useState("goerli");
+  console.log(ChainContext);
   const replaceName = () => {
     const badgeElement = document.getElementById("lite-badge");
     if (badgeElement) {
@@ -33,8 +37,9 @@ export default function App({ Component, pageProps }: any) {
     } catch (error) {}
   }, []);
   return (
+    <ChainContext.Provider value={{selectedChain,setSelectedChain}}>
     <ThirdwebProvider
-      activeChain={Mumbai}
+      activeChain={selectedChain}
       clientId="c17ae4f3c142f9fb029795f0c6de71ef"
       autoConnect={true}
       supportedWallets={[
@@ -43,7 +48,7 @@ export default function App({ Component, pageProps }: any) {
         walletConnect(),
         trustWallet(),
       ]}
-    >
+      >
       <ThemeProvider attribute="class">
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
@@ -53,11 +58,11 @@ export default function App({ Component, pageProps }: any) {
                 <meta
                   name="description"
                   content="AI Powered Job Matching Platform"
-                />
+                  />
                 <meta
                   name="viewport"
                   content="width=device-width, initial-scale=1"
-                />
+                  />
                 <link rel="icon" href="/favicon.ico" />
               </Head>
               {/* <BubbleChat
@@ -84,14 +89,14 @@ export default function App({ Component, pageProps }: any) {
                       textColor: "#303235",
                       showAvatar: true,
                       avatarSrc:
-                        "https://api.joblab.ai/uploads/logos/chat-company.png",
+                      "https://api.joblab.ai/uploads/logos/chat-company.png",
                     },
                     userMessage: {
                       backgroundColor: "#3B81F6",
                       textColor: "#ffffff",
                       showAvatar: true,
                       avatarSrc:
-                        "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/usericon.png",
+                      "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/usericon.png",
                     },
                     textInput: {
                       placeholder: "Type your question",
@@ -109,5 +114,6 @@ export default function App({ Component, pageProps }: any) {
         </Provider>
       </ThemeProvider>
     </ThirdwebProvider>
+                    </ChainContext.Provider>
   );
 }

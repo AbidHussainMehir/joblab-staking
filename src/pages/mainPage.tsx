@@ -47,7 +47,7 @@ import {
 } from "@thirdweb-dev/react";
 import { useNetwork } from "@thirdweb-dev/react";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Input } from "@/components/FormElements";
 import Analytics from "./analytics";
 import axios from "axios";
@@ -57,26 +57,54 @@ import {
   REWARD_TOKEN_ADDRESSES,
   STAKE_CONTRACT_ADDRESSES,
   STAKE_TOKEN_ADDRESSES,
+  ETH_REWARD_TOKEN_ADDRESSES, ETH_STAKE_CONTRACT_ADDRESSES , ETH_STAKE_TOKEN_ADDRESSES
 } from "./../components/addresses";
 import { Switch } from "@headlessui/react";
+import ChainContext from "./context/Chain";
+
 function MainPage() {
+  const [jobCount, setCompanies] = useState<any[]>([]);
+  const [loading1, setLoading] = useState<Boolean>(true);
+  const [active, setActive] = useState("presale");
+  const [stakeAmount, setStakeAmount] = useState<any>("");
+  const [unstakeAmount, setUnstakeAmount] = useState<any>("");
+  const [selectedNetwork, setNetwork] = useState(false);
+  const [stakeAddress  , setStakeAddress] = useState(STAKE_CONTRACT_ADDRESSES)
+  const [rewardTokenAddres, setRewardTokenAddress] = useState(REWARD_TOKEN_ADDRESSES)
+  const [stakingTokenAddress , setStakingTokenAddress] = useState(STAKE_TOKEN_ADDRESSES)
+const { selectedChain, setSelectedChain } = useContext(ChainContext);
   const { theme, setTheme } = useTheme();
   useEffect(() => {
     setTheme("light");
   }, []);
 
   const address = useAddress();
+  useEffect(() => {
+    if (selectedNetwork) {
+      setStakeAddress(STAKE_CONTRACT_ADDRESSES);
+      setRewardTokenAddress(REWARD_TOKEN_ADDRESSES);
+      setStakingTokenAddress(STAKE_TOKEN_ADDRESSES);
+      setSelectedChain("mumbai")
+    }
+    else {
+      setSelectedChain("goerli")
+      setStakeAddress(ETH_STAKE_CONTRACT_ADDRESSES);
+      setRewardTokenAddress(ETH_REWARD_TOKEN_ADDRESSES);
+      setStakingTokenAddress(ETH_STAKE_TOKEN_ADDRESSES);
+    }
+
+  }, [selectedNetwork]);
 
   const { contract: stakeTokenContract } = useContract(
-    STAKE_TOKEN_ADDRESSES,
+    stakingTokenAddress,
     "token"
   );
   const { contract: rewardTokenContract } = useContract(
-    REWARD_TOKEN_ADDRESSES,
+    rewardTokenAddres,
     "token"
   );
   const { contract: stakeContract } = useContract(
-    STAKE_CONTRACT_ADDRESSES,
+    stakeAddress,
     "custom"
   );
 
@@ -98,12 +126,6 @@ function MainPage() {
     }, 10000);
   }, []);
 
-  const [jobCount, setCompanies] = useState<any[]>([]);
-  const [loading1, setLoading] = useState<Boolean>(true);
-  const [active, setActive] = useState("presale");
-  const [stakeAmount, setStakeAmount] = useState<any>("");
-  const [unstakeAmount, setUnstakeAmount] = useState<any>("");
-  const [selectedNetwork, setNetwork] = useState(false);
   const getCompanies = async () => {
     try {
       setLoading(true);
@@ -383,10 +405,10 @@ function MainPage() {
                           className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
                         />
                         <Web3Button
-                          contractAddress={STAKE_CONTRACT_ADDRESSES}
+                          contractAddress={stakeAddress}
                           action={async (contract: any) => {
                             await stakeTokenContract?.erc20.setAllowance(
-                              STAKE_CONTRACT_ADDRESSES,
+                              stakeAddress,
                               stakeAmount
                             );
 
@@ -424,7 +446,7 @@ function MainPage() {
                           Stake
                         </Web3Button>
                         <Web3Button
-                          contractAddress={STAKE_CONTRACT_ADDRESSES}
+                          contractAddress={stakeAddress}
                           action={async (contract: any) => {
                             await contract.call("withdraw", [
                               ethers.utils.parseEther(unstakeAmount),
@@ -479,7 +501,7 @@ function MainPage() {
                       </div>
                       <div className="flex-grow" />
                       <Web3Button
-                        contractAddress={STAKE_CONTRACT_ADDRESSES}
+                        contractAddress={stakeAddress}
                         action={async (contract: any) => {
                           await contract.call("claimRewards");
                           setStakeAmount(0);
