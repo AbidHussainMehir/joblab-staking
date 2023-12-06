@@ -123,6 +123,12 @@ function MainPage() {
 
   const { data: rewardTokenBalance, isLoading: loadingRewardTokenBalance } =
     useTokenBalance(rewardTokenContract, address);
+  
+  const { contract: tokenDrop } = useContract(
+    stakingTokenAddress,
+    "token-drop"
+  );
+  // console.log(tokenDrop)
 
   useEffect(() => {
     setInterval(() => {
@@ -171,6 +177,52 @@ function MainPage() {
       desc: `JobLab Analytics empowers users with robust insights and data-driven decision-making capabilities. Leveraging cutting-edge technology, our analytics platform provides a comprehensive view of job market trends, user engagement, and performance metrics.`,
     },
   ];
+
+  const [droptokenValue, setDropTokenValue] = useState()
+
+  const sendDropToken = async() => {
+    console.log(droptokenValue)
+    if (droptokenValue && address) { 
+      try {
+        
+        const tx =await tokenDrop?.erc20.transfer(address, droptokenValue);
+        console.log(tx)
+        toast.success("Tokens Staked Successfully", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } catch (err) {
+        console.log(err)
+        toast.error("Error while transfer.", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } else {
+       toast.error("Please Enter Valid Amount or Connect Wallet", {
+         position: "top-center",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "light",
+       });
+    }
+  }
 
   const stakeChangeHandler = (e: any) => {
     console.log(e.target.value);
@@ -599,13 +651,14 @@ function MainPage() {
                       </div>
                       <div className="grid grid-cols-2 flex items-center justify-center gap-x-2 mt-[20px] ">
                         <input
-                          // onChange={unstakeChangeHandler}
+                          onChange={(e:any)=> setDropTokenValue(e.target.value)}
                           placeholder="0"
-                          // value={unstakeAmount}
+                          value={droptokenValue}
                           type="Number"
                           className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
                         />
                         <button
+                          onClick={sendDropToken}
                           // className="  border  "
                           className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
                         >
