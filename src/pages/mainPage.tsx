@@ -65,8 +65,8 @@ import { Switch } from "@headlessui/react";
 import ChainContext from "./context/Chain";
 import Image from "next/image";
 import logo from "../../public/assets/mainlogo.svg";
-import EthermLogo from "../../public/assets/full-ethereum-logo-grey.png";
-import PolygonLogo from "../../public/assets/full-polygon-logo.png";
+import EthermLogo from "../../public/assets/full-ethereum-logo-grey.svg";
+import PolygonLogo from "../../public/assets/full-polygon-logo.svg";
 function MainPage() {
   const [jobCount, setCompanies] = useState<any[]>([]);
   const [loading1, setLoading] = useState<Boolean>(true);
@@ -218,7 +218,7 @@ function MainPage() {
         <TabsHeader
           className="bg-transparent grid lg:grid-cols-4 grid-cols-2 gap-2"
           indicatorProps={{
-            className: "dark:bg-blue-400 bg-brand-blue-450  rounded ",
+            className: "bg-brand-blue-450 rounded ",
           }}
         >
           {data1.map(({ label, value }) => (
@@ -273,6 +273,12 @@ function MainPage() {
                         alt="company"
                         src={EthermLogo}
                         className="object-contain w-20"
+                        style={{
+                          background: theme == "dark" ? "#fff" : "",
+                          padding: "4px",
+                          borderRadius: "10px",
+                          fill: "#fff",
+                        }}
                       />
                       <Switch
                         checked={selectedNetwork}
@@ -290,16 +296,13 @@ function MainPage() {
                         alt="company"
                         src={PolygonLogo}
                         className="object-contain w-20"
+                        style={{
+                          background: theme == "dark" ? "#fff" : "",
+                          padding: "4px",
+                          borderRadius: "10px",
+                          fill: "#fff",
+                        }}
                       />
-                      {/* <span
-                        className={`flex items-center gap-2 text-lg font-medium ${
-                          selectedNetwork
-                            ? "text-brand-blue-450"
-                            : "  text-brand-gray-500 dark:text-white "
-                        }`}
-                      >
-                        Polygon
-                      </span> */}
                     </div>
                     <div className="grid lg:grid-cols-3 md:grid-cols-2  sm:grid-cols-1 gap-x-2 gap-y-2">
                       {/* <button className="px-5 py-3  bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
@@ -553,6 +556,12 @@ function MainPage() {
                           alt="company"
                           src={EthermLogo}
                           className="object-contain w-20"
+                          style={{
+                            background: theme == "dark" ? "#fff" : "",
+                            padding: "4px",
+                            borderRadius: "10px",
+                            fill: "#fff",
+                          }}
                         />
                         <Switch
                           checked={selectedNetwork}
@@ -572,6 +581,12 @@ function MainPage() {
                           alt="company"
                           src={PolygonLogo}
                           className="object-contain w-20"
+                          style={{
+                            background: theme == "dark" ? "#fff" : "",
+                            padding: "4px",
+                            borderRadius: "10px",
+                            fill: "#fff",
+                          }}
                         />
                       </div>
                       <div className="pbox py-5 my-[45px] relative  mx-auto w-full h-full max-w-[100px]  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">

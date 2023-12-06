@@ -160,15 +160,15 @@ const Navbar: FC<NavbarProps> = () => {
               "https://api.joblab.ai/uploads/logos/chat-company.png"
             }
             // className="bg-brand-blue-450"
-            className={`py-2 px-5 text-[15px] rounded-[50px] border font-light bg-brand-blue-150 text-brand-blue-100 `}
+            className={`py-2 px-5 text-[15px] rounded-[50px] border font-light bg-brand-blue-450 dark:text-brand-blue-100 text-white `}
             style={{
               fontSize: "15px",
               fontWeight: 300,
               margin: "0px 0px 0px 10px",
               borderRadius: "50px",
-              color: "#2870d5",
+              color: "#fff",
               // backgroundColor: "rgb(7 24 196 / var(--tw-bg-opacity))",
-              backgroundColor: theme === "dark" ? "#61a5fa" : "#e2eaf8 ",
+              backgroundColor: "#0718c4",
             }}
           />
         </div>
