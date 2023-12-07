@@ -181,11 +181,12 @@ function MainPage() {
   const [droptokenValue, setDropTokenValue] = useState()
 
   const sendDropToken = async() => {
-    console.log(droptokenValue)
     if (droptokenValue && address) { 
       try {
+        let amount = String(droptokenValue)
+        console.log(amount)
         
-        const tx =await tokenDrop?.erc20.transfer(address, droptokenValue);
+        const tx = await tokenDrop?.erc20.claim(amount);
         console.log(tx)
         toast.success("Tokens Staked Successfully", {
           position: "top-center",
