@@ -13,7 +13,7 @@
     "@heroicons/react": "^2.0.15",
     "@hookform/resolvers": "^3.0.1",
     "@material-tailwind/react": "^2.1.4",
-    "@next/font": "13.1.6",
+    "@next/font": "13.5.6",
     "@reduxjs/toolkit": "^1.9.5",
     "@thirdweb-dev/react": "^4.0.0",
     "@thirdweb-dev/sdk": "^4.0.0",
