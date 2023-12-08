@@ -3,8 +3,8 @@ import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import MenuIcon from "../icons/MenuIcon";
 import MobileMenu from "./MobileMenu";
-import logo from "../../../public/assets/mainlogo.svg";
-import logoWhite from "../../../public/assets/logo-white.png";
+import logo from "../../../public/assets/logowhite.svg";
+import logoWhite from "../../../public/assets/mainlogo2.svg";
 import {
   ArrowsPointingInIcon,
   ArrowsPointingOutIcon,
@@ -91,7 +91,7 @@ const Navbar: FC<NavbarProps> = () => {
         <div className="grid grid-cols-[180px,1fr]">
           <section className="flex items-center">
             <div className="relative aspect-video w-[95px]">
-              <Link href={"/"}>{returnLogo(theme)}</Link>
+              <a href={"https://www.joblab.ai"}>{returnLogo(theme)}</a>
             </div>
           </section>
 

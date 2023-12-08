@@ -1,31 +1,3 @@
-// const MainPage: any = () => {
-//   return (
-//     <div className=" w-full h-full bg-[#f4f7fc] dark:bg-[#0000]">
-//       {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-//         <button
-//           className={`py-2 px-5 text-[15px] rounded-[50px] border font-light bg-brand-blue-150 text-brand-blue-100 `}
-//         >
-//           Presale
-//         </button>
-//         <button
-//           className={`py-2 px-5 text-[15px] rounded-[50px] border font-light bg-brand-blue-150 text-brand-blue-100 `}
-//         >
-//           Staking
-//         </button>
-//         <button
-//           classNameName={`py-2 px-5 text-[15px] rounded-[50px] border font-light bg-brand-blue-150 text-brand-blue-100 `}
-//         >
-//           Governance
-//         </button>
-//         <button
-//           classNameName={`py-2 px-5 text-[15px] rounded-[50px] border font-light bg-brand-blue-150 text-brand-blue-100 `}
-//         >
-//           Analytics
-//         </button>
-//       </div> */}
-//     </div>
-//   );
-// };
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ethers } from "ethers";
@@ -49,8 +21,6 @@ import { useNetwork } from "@thirdweb-dev/react";
 
 import { useEffect, useState, useContext } from "react";
 import { Input } from "@/components/FormElements";
-import Analytics from "./analytics";
-import axios from "axios";
 import Header from "@/components/Typography/Header";
 import LineChart from "@/components/chart/line-chart";
 import {
@@ -64,7 +34,8 @@ import {
 import { Switch } from "@headlessui/react";
 import ChainContext from "./context/Chain";
 import Image from "next/image";
-import logo from "../../public/assets/mainlogo.svg";
+import logo from "../../public/assets/mainlogo2.svg";
+import logowhite from "../../public/assets/logowhite.svg";
 import EthermLogo from "../../public/assets/full-ethereum-logo-grey.svg";
 import PolygonLogo from "../../public/assets/full-polygon-logo.svg";
 function MainPage() {
@@ -123,7 +94,7 @@ function MainPage() {
 
   const { data: rewardTokenBalance, isLoading: loadingRewardTokenBalance } =
     useTokenBalance(rewardTokenContract, address);
-  
+
   const { contract: tokenDrop } = useContract(
     stakingTokenAddress,
     "token-drop"
@@ -178,16 +149,16 @@ function MainPage() {
     },
   ];
 
-  const [droptokenValue, setDropTokenValue] = useState()
+  const [droptokenValue, setDropTokenValue] = useState();
 
-  const sendDropToken = async() => {
-    if (droptokenValue && address) { 
+  const sendDropToken = async () => {
+    if (droptokenValue && address) {
       try {
-        let amount = String(droptokenValue)
-        console.log(amount)
-        
+        let amount = String(droptokenValue);
+        console.log(amount);
+
         const tx = await tokenDrop?.erc20.claim(amount);
-        console.log(tx)
+        console.log(tx);
         toast.success("Tokens Staked Successfully", {
           position: "top-center",
           autoClose: 5000,
@@ -199,7 +170,7 @@ function MainPage() {
           theme: "light",
         });
       } catch (err) {
-        console.log(err)
+        console.log(err);
         toast.error("Error while transfer.", {
           position: "top-center",
           autoClose: 5000,
@@ -212,18 +183,18 @@ function MainPage() {
         });
       }
     } else {
-       toast.error("Please Enter Valid Amount or Connect Wallet", {
-         position: "top-center",
-         autoClose: 5000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         progress: undefined,
-         theme: "light",
-       });
+      toast.error("Please Enter Valid Amount or Connect Wallet", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
-  }
+  };
 
   const stakeChangeHandler = (e: any) => {
     console.log(e.target.value);
@@ -643,16 +614,27 @@ function MainPage() {
                         />
                       </div>
                       <div className="pbox py-5 my-[45px] relative  mx-auto w-full h-full max-w-[100px]  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
-                        <Image
-                          alt="company"
-                          src={logo}
-                          fill
-                          className="object-contain "
-                        />
+                        {theme === "dark" ? (
+                          <Image
+                            alt="company"
+                            src={logo}
+                            fill
+                            className="object-contain "
+                          />
+                        ) : (
+                          <Image
+                            alt="company"
+                            src={logowhite}
+                            fill
+                            className="object-contain "
+                          />
+                        )}
                       </div>
                       <div className="grid grid-cols-2 flex items-center justify-center gap-x-2 mt-[20px] ">
                         <input
-                          onChange={(e:any)=> setDropTokenValue(e.target.value)}
+                          onChange={(e: any) =>
+                            setDropTokenValue(e.target.value)
+                          }
                           placeholder="0"
                           value={droptokenValue}
                           type="Number"
