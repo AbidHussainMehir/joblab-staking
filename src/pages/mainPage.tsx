@@ -159,7 +159,7 @@ function MainPage() {
 
         const tx = await tokenDrop?.erc20.claim(amount);
         console.log(tx);
-        toast.success("Tokens Staked Successfully", {
+        toast.success("Tokens Claimed Successfully", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -171,7 +171,7 @@ function MainPage() {
         });
       } catch (err) {
         console.log(err);
-        toast.error("Error while transfer.", {
+        toast.error("Error while Claiming.", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -640,13 +640,14 @@ function MainPage() {
                           type="Number"
                           className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
                         />
-                        <button
-                          onClick={sendDropToken}
+                        <Web3Button
+                          action={sendDropToken}
+                          contractAddress={stakingTokenAddress}
                           // className="  border  "
                           className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
                         >
                           Buy JOBS
-                        </button>
+                        </Web3Button>
                       </div>
                       <span className="mt-3 text-center dark:text-white text-[green]">
                         2500000.0 minted
