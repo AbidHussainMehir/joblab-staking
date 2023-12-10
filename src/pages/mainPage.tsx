@@ -212,18 +212,7 @@ function MainPage() {
 
   const [{ data, error }, switchNetwork] = useNetwork();
   console.log("data:", data?.chain?.chainId);
-  // const changeToMainNet = async () => {
-  //   if (!switchNetwork) {
-  //     console.log("can not switch network");
-  //     return;
-  //   }
-  //   const result = await switchNetwork(data?.chain?.chainId === 1 ? 137 : 1);
-  //   if (result.data) {
-  //     console.log(`Switched network successfully`);
-  //   } else {
-  //     console.log("Error switching network", result.error);
-  //   }
-  // };
+
   return (
     <div className=" flex justify-center lg:px-[150px]  bg-[#f4f7fc] dark:bg-black p-[20px] ">
       <ToastContainer
@@ -278,21 +267,10 @@ function MainPage() {
                     <div className="flex-grow" />
                   </>
                 )}
-                {/* <button className="px-7 py-4  bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
-                  Purchase Jobs Token
-                </button> */}
+
                 {value == "staking" && (
                   <>
                     <div className="flex p-2">
-                      {/* <span
-                        className={`flex items-center gap-2 text-lg font-medium ${
-                          selectedNetwork
-                            ? "text-brand-gray-500 dark:text-white "
-                            : " text-brand-blue-450 "
-                        }`}
-                      >
-                        Ethereum
-                      </span> */}
                       <Image
                         alt="company"
                         src={EthermLogo}
@@ -328,55 +306,7 @@ function MainPage() {
                         }}
                       />
                     </div>
-                    <div className="grid lg:grid-cols-3 md:grid-cols-2  sm:grid-cols-1 gap-x-2 gap-y-2">
-                      {/* <button className="px-5 py-3  bg-brand-blue-150 dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
-                      Stake
-                    </button> */}
-
-                      {/* <Web3Button
-                      contractAddress={STAKE_CONTRACT_ADDRESSES}
-                      action={async (contract: any) => {
-                        await stakeTokenContract?.erc20.setAllowance(
-                          STAKE_CONTRACT_ADDRESSES,
-                          stakeAmount
-                        );
-
-                        await contract.call("stake", [
-                          ethers.utils.parseEther(stakeAmount),
-                        ]);
-                        setStakeAmount(0);
-                      }}
-                      onSuccess={() => console.log("Success")}
-                    >
-                      Stake
-                    </Web3Button>
-                    <Web3Button
-                      contractAddress={STAKE_CONTRACT_ADDRESSES}
-                      action={async (contract: any) => {
-                        await contract.call("withdraw", [
-                          ethers.utils.parseEther(stakeAmount),
-                        ]);
-                        setStakeAmount(0);
-                      }}
-                      onSuccess={() => {
-                        console.log("Unstaked Successfully");
-                      }}
-                    >
-                      Unstake
-                    </Web3Button>
-                    <Web3Button
-                      contractAddress={STAKE_CONTRACT_ADDRESSES}
-                      action={async (contract: any) => {
-                        await contract.call("claimRewards");
-                        setStakeAmount(0);
-                      }}
-                      onSuccess={() =>
-                        console.log("Reward Received Successfully")
-                      }
-                    >
-                      Claim
-                    </Web3Button> */}
-                    </div>
+                    <div className="grid lg:grid-cols-3 md:grid-cols-2  sm:grid-cols-1 gap-x-2 gap-y-2"></div>
                   </>
                 )}
                 {value == "staking" && (
@@ -512,7 +442,6 @@ function MainPage() {
                           Unstake
                         </Web3Button>
                       </div>
-                      {/* <span className="text-brand-black-50 dark:text-white "></span> */}
                     </div>
                     <div className="px-6 py-4 flex justify-center items-center flex-col border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
                       <div className="flex justify-center items-center flex-col mt-[30px]">
@@ -643,7 +572,6 @@ function MainPage() {
                         <Web3Button
                           action={sendDropToken}
                           contractAddress={stakingTokenAddress}
-                          // className="  border  "
                           className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
                         >
                           Buy JOBS
@@ -652,6 +580,60 @@ function MainPage() {
                       <span className="mt-3 text-center dark:text-white text-[green]">
                         2500000.0 minted
                       </span>
+                      <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
+                        JobLab presale presents an opportunity for early
+                        adopters and believers to purchase JOBS token with
+                        unique tokenomics at a significant discount to future
+                        project value and token price.
+                      </span>
+                      <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
+                        JobLab pairs candidates and employers with powerful Al
+                        matching and democratizes the future of work with Web3
+                        freelancing. We are a growing team driving to be the
+                        next Crypto AI unicorn. With your support, we are
+                        cultivating the fastest growing, impactful and useful
+                        community in the space today.
+                      </span>
+                      <div className="flex justify-center">
+                        <div className="justify-center mt-4">
+                          <div>
+                            <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-medium pr-2">
+                              Token Price:
+                            </span>
+                            <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
+                              $0.20
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-medium pr-2">
+                              Supply:
+                            </span>
+                            <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
+                              21M (no inflation, ever)
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
+                              Stake JOBS for WORK rewards
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
+                              Use JOBS to Vote on Proposals
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
+                              Use JOBS to hire or get hired
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
+                              Multi-chain EVM token support
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </>
                 )}
