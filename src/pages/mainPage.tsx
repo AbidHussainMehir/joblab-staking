@@ -38,6 +38,7 @@ import logo from "../../public/assets/mainlogo2.svg";
 import logowhite from "../../public/assets/logowhite.svg";
 import EthermLogo from "../../public/assets/full-ethereum-logo-grey.svg";
 import PolygonLogo from "../../public/assets/full-polygon-logo.svg";
+import axios from "axios";
 function MainPage() {
   const [jobCount, setCompanies] = useState<any[]>([]);
   const [loading1, setLoading] = useState<Boolean>(true);
