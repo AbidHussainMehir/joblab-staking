@@ -360,7 +360,7 @@ function MainPage() {
                         </span>
                       </div>
                     </div>
-                    <div className="px-6 py-4 grid grid-cols-1  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
+                    <div className="px-6 py-4 grid grid-cols-1  border border-[blue] border-[2px] dark:bg-transparent dark:border  mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
                       <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
                         Earn Reward Token
                       </span>
@@ -469,7 +469,7 @@ function MainPage() {
                         </Web3Button>
                       </div>
                     </div>
-                    <div className="px-6 py-4 flex justify-center items-center flex-col border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
+                    <div className="px-6 py-4 flex justify-center items-center flex-col border border-[green] border-[2px] dark:bg-transparent  mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
                       <div className="flex justify-center items-center flex-col mt-[30px]">
                         <span className="text-brand-black-50 dark:text-white font-medium">
                           Reward Token:
