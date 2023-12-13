@@ -41,7 +41,7 @@ import PolygonLogo from "../../public/assets/full-polygon-logo.svg";
 import JobsTokenIcon from "../../public/assets/jobs-token-logo-transparent.svg";
 import WorkTokenIcon from "../../public/assets/work-token-logo-transparent.svg";
 import JobsTokenWhiteIcon from "../../public/assets/jobs-token-logo-white-transparent.svg";
-
+import WorkTokenWhiteIcon from "../../public/assets/work-token-logo-white-transparent.svg";
 import axios from "axios";
 function MainPage() {
   const [jobCount, setCompanies] = useState<any[]>([]);
@@ -362,7 +362,7 @@ function MainPage() {
                       ) : (
                         <Image
                           alt="Work logo"
-                          src={WorkTokenIcon}
+                          src={WorkTokenWhiteIcon}
                           className="object-contain w-23"
                           style={{
                             padding: "4px",
