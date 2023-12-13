@@ -219,7 +219,7 @@ function MainPage() {
   console.log("data:", data?.chain?.chainId);
 
   return (
-    <div className=" flex justify-center lg:px-[150px]  bg-[#f4f7fc] dark:bg-black p-[20px] ">
+    <div className=" flex justify-center lg:px-[200px]  bg-[#f4f7fc] dark:bg-black p-[20px] ">
       <ToastContainer
         position="top-center"
         autoClose={5000}
