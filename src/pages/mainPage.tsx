@@ -38,6 +38,8 @@ import logo from "../../public/assets/mainlogo2.svg";
 import logowhite from "../../public/assets/logowhite.svg";
 import EthermLogo from "../../public/assets/full-ethereum-logo-grey.svg";
 import PolygonLogo from "../../public/assets/full-polygon-logo.svg";
+import JobsTokenIcon from "../../public/assets/jobs-token-logo-transparent.svg";
+import WorkTokenIcon from "../../public/assets/work-token-logo-transparent.svg";
 import axios from "axios";
 function MainPage() {
   const [jobCount, setCompanies] = useState<any[]>([]);
@@ -312,28 +314,51 @@ function MainPage() {
                 )}
                 {value == "staking" && (
                   <div className="grid  w-full lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-1 gap-x-2  mt-5  ">
-                    <div className="px-6 py-4 grid grid-cols-1 border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
-                      <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
+                    <div className="px-6 py-4 grid items-center grid-cols-2 border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
+                      {/* <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
                         Stake Token
-                      </span>
-                      <span className="text-brand-black-50 dark:text-white text-[13px] font-medium">
-                        $SCOIN
-                      </span>
-                      <span className="text-brand-black-50 dark:text-white">
-                        {StaketokenBalance?.displayValue}
-                      </span>
+                      </span> */}
+                      <Image
+                        alt="company"
+                        src={JobsTokenIcon}
+                        className="object-contain w-20"
+                        style={{
+                          background: theme == "dark" ? "#fff" : "",
+                          padding: "4px",
+                          borderRadius: "10px",
+                          fill: "#fff",
+                        }}
+                      />
+                      <div>
+                        <span className="text-brand-black-50 dark:text-white text-[13px] font-medium">
+                          Balance :
+                        </span>
+                        <span className="ms-1 text-brand-black-50 dark:text-white text-[13px] font-medium">
+                          {StaketokenBalance?.displayValue}
+                        </span>
+                      </div>
                     </div>
 
-                    <div className="px-6 py-4 grid grid-cols-1  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
-                      <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
-                        Reward Token
-                      </span>
-                      <span className="text-brand-black-50 dark:text-white text-[13px] font-medium">
-                        $REWARD
-                      </span>
-                      <span className="text-brand-black-50 dark:text-white">
-                        {tokenBalance?.displayValue}
-                      </span>
+                    <div className="px-6 py-4 grid grid-cols-2 items-center  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
+                      <Image
+                        alt="Work logo"
+                        src={WorkTokenIcon}
+                        className="object-contain w-20"
+                        style={{
+                          background: theme == "dark" ? "#fff" : "",
+                          padding: "4px",
+                          borderRadius: "10px",
+                          fill: "#fff",
+                        }}
+                      />
+                      <div>
+                        <span className="text-brand-black-50 dark:text-white text-[13px] font-medium">
+                          Balance :
+                        </span>
+                        <span className="ms-1 text-brand-black-50 dark:text-white text-[13px] font-medium">
+                          {tokenBalance?.displayValue}
+                        </span>
+                      </div>
                     </div>
                     <div className="px-6 py-4 grid grid-cols-1  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
                       <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
