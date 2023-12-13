@@ -85,10 +85,11 @@ const Navbar: FC<NavbarProps> = () => {
   return (
     <nav className="fixed top-0 z-[9999] shadow-container bg-white dark:bg-[#000000] dark:border-b dark:border-brand-dark-100 dark:bg-opacity-95 w-full">
       <div
-        className={`pbox pb-[2px] pt-[4px] lg:grid lg:grid-cols-[1fr,280px] flex items-center justify-between`}
+        // className={`pbox pb-[2px] pt-[4px] lg:grid lg:grid-cols-[1fr,280px] flex items-center justify-between`}
+        className={`pbox pb-[2px] pt-[4px] lg:flex flex-row flex items-center justify-between`}
       >
         <div
-          className="flex justify-between lg:grid lg:grid-cols-[1fr,1fr] "
+          className="flex justify-between lg:flex "
           style={{ width: "100%" }}
         >
           {/* <section className="flex items-center"> */}
@@ -127,7 +128,7 @@ const Navbar: FC<NavbarProps> = () => {
                 // backgroundColor: "rgb(7 24 196 / var(--tw-bg-opacity))",
                 backgroundColor: "#0718c4",
               }}
-            />{" "}
+            />
             <button
               className="ml-2 cursor-pointer"
               onClick={() =>
@@ -141,21 +142,19 @@ const Navbar: FC<NavbarProps> = () => {
               )}
             </button>
           </div>
-
-          <div className="justify-center text-[25px] whitespace-nowrap font-light lg:flex hidden items-center  text-brand-black-50 dark:text-brand-dark-50">
-            <span
-              className={`  ${
-                theme === "dark"
-                  ? "text-yellow-400 border-yellow-400"
-                  : "text-brand-blue-450 border-brand-blue-450 "
-              }  font-medium pb-1 pt-1  `}
-            >
-              JobLab Token Dashboard
-            </span>
-          </div>
         </div>
-
-        <div className="w-full lg:flex hidden items-center justify-center space-x-3">
+        <div className="justify-center text-[25px] whitespace-nowrap font-light lg:flex hidden items-center  text-brand-black-50 dark:text-brand-dark-50">
+          <span
+            className={`  ${
+              theme === "dark"
+                ? "text-yellow-400 border-yellow-400"
+                : "text-brand-blue-450 border-brand-blue-450 "
+            }  font-medium pb-1 pt-1  `}
+          >
+            JobLab Token Dashboard
+          </span>
+        </div>
+        <div className="w-full lg:flex hidden items-center justify-end space-x-3">
           {/* testing walletConnect */}
           <button
             className="ml-10 cursor-pointer"
