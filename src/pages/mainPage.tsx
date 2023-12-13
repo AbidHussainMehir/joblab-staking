@@ -40,6 +40,8 @@ import EthermLogo from "../../public/assets/full-ethereum-logo-grey.svg";
 import PolygonLogo from "../../public/assets/full-polygon-logo.svg";
 import JobsTokenIcon from "../../public/assets/jobs-token-logo-transparent.svg";
 import WorkTokenIcon from "../../public/assets/work-token-logo-transparent.svg";
+import JobsTokenWhiteIcon from "../../public/assets/jobs-token-logo-white-transparent.svg";
+
 import axios from "axios";
 function MainPage() {
   const [jobCount, setCompanies] = useState<any[]>([]);
@@ -315,20 +317,27 @@ function MainPage() {
                 {value == "staking" && (
                   <div className="grid  w-full lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-1 gap-x-2  mt-5  ">
                     <div className="px-6 py-4 grid items-center grid-cols-2 border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
-                      {/* <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
-                        Stake Token
-                      </span> */}
-                      <Image
-                        alt="company"
-                        src={JobsTokenIcon}
-                        className="object-contain w-20"
-                        style={{
-                          background: theme == "dark" ? "#fff" : "",
-                          padding: "4px",
-                          borderRadius: "10px",
-                          fill: "#fff",
-                        }}
-                      />
+                      {theme == "light" ? (
+                        <Image
+                          alt="company"
+                          src={JobsTokenIcon}
+                          className="object-contain w-23"
+                          style={{
+                            padding: "4px",
+                            borderRadius: "10px",
+                          }}
+                        />
+                      ) : (
+                        <Image
+                          alt="white token"
+                          src={JobsTokenWhiteIcon}
+                          className="object-contain w-23"
+                          style={{
+                            padding: "4px",
+                            borderRadius: "10px",
+                          }}
+                        />
+                      )}
                       <div>
                         <span className="text-brand-black-50 dark:text-white text-[13px] font-medium">
                           Balance :
@@ -340,17 +349,27 @@ function MainPage() {
                     </div>
 
                     <div className="px-6 py-4 grid grid-cols-2 items-center  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
-                      <Image
-                        alt="Work logo"
-                        src={WorkTokenIcon}
-                        className="object-contain w-20"
-                        style={{
-                          background: theme == "dark" ? "#fff" : "",
-                          padding: "4px",
-                          borderRadius: "10px",
-                          fill: "#fff",
-                        }}
-                      />
+                      {theme == "light" ? (
+                        <Image
+                          alt="Work logo"
+                          src={WorkTokenIcon}
+                          className="object-contain w-23"
+                          style={{
+                            padding: "4px",
+                            borderRadius: "10px",
+                          }}
+                        />
+                      ) : (
+                        <Image
+                          alt="Work logo"
+                          src={WorkTokenIcon}
+                          className="object-contain w-23"
+                          style={{
+                            padding: "4px",
+                            borderRadius: "10px",
+                          }}
+                        />
+                      )}
                       <div>
                         <span className="text-brand-black-50 dark:text-white text-[13px] font-medium">
                           Balance :
@@ -361,18 +380,15 @@ function MainPage() {
                       </div>
                     </div>
                     <div className="px-6 py-4 grid grid-cols-1  border border-[blue] border-[2px] dark:bg-transparent dark:border  mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
-                      <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
-                        Earn Reward Token
+                      <span className="flex justify-center text-brand-black-50 dark:text-white text-[20px] font-medium">
+                        Total Jobs:0
                       </span>
                       <div className="flex justify-center  items-center flex-col py-[25px]">
                         <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
-                          Stake Token
-                        </span>
-                        <span className="text-brand-black-50 dark:text-white text-[13px] font-medium">
+                          Staked Jobs:
                           {stakeInfo && stakeInfo[0]
                             ? ethers.utils.formatEther(stakeInfo[0])
                             : 0}
-                          &nbsp;$SCOIN
                         </span>
                       </div>
                       <div className="grid lg:grid-cols-2 grid-cols-1 gap-x-2 gap-y-3">
@@ -471,18 +487,19 @@ function MainPage() {
                     </div>
                     <div className="px-6 py-4 flex justify-center items-center flex-col border border-[green] border-[2px] dark:bg-transparent  mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
                       <div className="flex justify-center items-center flex-col mt-[30px]">
-                        <span className="text-brand-black-50 dark:text-white font-medium">
-                          Reward Token:
+                        <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
+                          Claimed WORK:0
                         </span>
 
-                        <span className="text-brand-black-50 dark:text-white">
-                          {stakeInfo && stakeInfo[0]
-                            ? ethers.utils.formatEther(stakeInfo[1])
-                            : 0}
-                        </span>
-                        <span className="text-brand-black-50 dark:text-white text-[13px] font-medium">
-                          $REWARD
-                        </span>
+                        <div className="flex justify-center  items-center flex-col py-[25px]">
+                          <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
+                            Current WORK:
+                            {stakeInfo && stakeInfo[0]
+                              ? ethers.utils.formatEther(stakeInfo[0])
+                              : 0}
+                          </span>
+                          {/* <span className="text-brand-black-50 dark:text-white text-[13px] font-medium"></span> */}
+                        </div>
                       </div>
                       <div className="flex-grow" />
                       <Web3Button
