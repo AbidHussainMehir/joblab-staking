@@ -219,7 +219,7 @@ function MainPage() {
   console.log("data:", data?.chain?.chainId);
 
   return (
-    <div className=" flex justify-center lg:px-[200px]  bg-[#f4f7fc] dark:bg-black p-[20px] ">
+    <div className=" flex justify-center lg:px-[270px]  bg-[#f4f7fc] dark:bg-black p-[20px] ">
       <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -258,7 +258,7 @@ function MainPage() {
         <TabsBody className="mt-[20px]">
           {data1.map(({ value, desc, title, subTitle }) => (
             <TabPanel key={value} value={value}>
-              <div className="rounded-lg flex flex-col items-center justify-center hover:shadow-containerbg-[#f4f7fc] dark:bg-transparent dark:border dark:border-brand-dark-100 border border-black  pt-5 px-8 pb-8">
+              <div className="rounded-lg flex flex-col items-center justify-center hover:shadow-containerbg-[#f4f7fc] dark:bg-transparent dark:border dark:border-brand-dark-100 border border-black  pt-5 px-3 pb-3">
                 {(value == "staking" || value == "governance") && (
                   <>
                     {title && (
@@ -315,7 +315,7 @@ function MainPage() {
                   </>
                 )}
                 {value == "staking" && (
-                  <div className="grid  w-full lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-1 gap-x-2  mt-5  ">
+                  <div className="grid  w-full lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-1 gap-x-1">
                     <div className="px-6 py-4 grid items-center grid-cols-2 border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
                       {theme == "light" ? (
                         <Image
@@ -339,11 +339,11 @@ function MainPage() {
                         />
                       )}
                       <div>
-                        <span className="text-brand-black-50 dark:text-white text-[13px] font-medium">
-                          Balance :
+                        <span className="text-brand-black-50 dark:text-white text-[15px] font-medium">
+                          Un-Staked JOBS:
                         </span>
-                        <span className="ms-1 text-brand-black-50 dark:text-white text-[13px] font-medium">
-                          {StaketokenBalance?.displayValue}
+                        <span className="ms-1 text-brand-black-50 dark:text-white text-[15px] font-medium">
+                          {/* {StaketokenBalance?.displayValue} */}
                         </span>
                       </div>
                     </div>
@@ -371,18 +371,18 @@ function MainPage() {
                         />
                       )}
                       <div>
-                        <span className="text-brand-black-50 dark:text-white text-[13px] font-medium">
-                          Balance :
+                        <span className="text-brand-black-50 dark:text-white text-[15px] font-medium">
+                          Claimed WORK:
                         </span>
-                        <span className="ms-1 text-brand-black-50 dark:text-white text-[13px] font-medium">
-                          {tokenBalance?.displayValue}
+                        <span className="ms-1 text-brand-black-50 dark:text-white text-[15px] font-medium">
+                          {/* {tokenBalance?.displayValue} */}
                         </span>
                       </div>
                     </div>
-                    <div className="px-6 py-4 grid grid-cols-1  border border-[blue] border-[2px] dark:bg-transparent dark:border  mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
-                      <span className="flex justify-center text-brand-black-50 dark:text-white text-[20px] font-medium">
+                    <div className="px-4 py-4 grid grid-cols-1 bg-gradient-to-l from-brand-blue-150 to-brand-blue-450 border border-brand-blue-450 border-[2px] dark:bg-transparent dark:border  mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
+                      {/* <span className="flex justify-center text-brand-black-50 dark:text-white text-[20px] font-medium">
                         Total Jobs:0
-                      </span>
+                      </span> */}
                       <div className="flex justify-center  items-center flex-col py-[25px]">
                         <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
                           Staked Jobs:
@@ -485,11 +485,11 @@ function MainPage() {
                         </Web3Button>
                       </div>
                     </div>
-                    <div className="px-6 py-4 flex justify-center items-center flex-col border border-[green] border-[2px] dark:bg-transparent  mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
+                    <div className="px-4 py-4 flex justify-center items-center flex-col bg-gradient-to-l from-brand-green-50 to-brand-green-100 border border-[green] border-[2px] dark:bg-transparent  mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
                       <div className="flex justify-center items-center flex-col mt-[30px]">
-                        <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
+                        {/* <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
                           Claimed WORK:0
-                        </span>
+                        </span> */}
 
                         <div className="flex justify-center  items-center flex-col py-[25px]">
                           <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
