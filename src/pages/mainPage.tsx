@@ -635,7 +635,8 @@ function MainPage() {
                         2500000.0 minted
                         </span>
                       </span>
-                      <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
+                      <span className="mt-3 py-2 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#f3f4f6] dark:to-[#000] text-base rounded-lg px-3">
+                      <span className=" text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
                         JobLab presale presents an opportunity for early
                         adopters and believers to purchase JOBS token with
                         unique tokenomics at a significant discount to future
@@ -648,6 +649,7 @@ function MainPage() {
                         next Crypto AI unicorn. With your support, we are
                         cultivating the fastest growing, impactful and useful
                         community in the space today.
+                      </span>
                       </span>
                       <div className="flex justify-center">
                         <div className="justify-center mt-4">
