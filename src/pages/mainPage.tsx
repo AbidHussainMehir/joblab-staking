@@ -317,7 +317,7 @@ function MainPage() {
                 {value == "staking" && (
                   <div className="grid  w-full lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-1 gap-x-2">
                     {/* from-[#f3f4f6] to-[#a3b5c8]  */}
-                    <div className=" shadow-md px-6 py-4 grid items-center hover:bg-gradient-to-r hover:from-[#f3f4f6] hover:to-[#54799e] bg-gradient-to-r from-[#f3f4f6] to-[#a3b5c8]   grid-cols-2 border dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg"
+                    <div className=" shadow-md px-6 py-4 grid items-center hover:bg-gradient-to-r hover:from-[#f3f4f6] hover:to-[#0909dc] bg-gradient-to-r from-[#f3f4f6] to-[#4343ff]   grid-cols-2 border dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg"
                     >
                       {theme == "light" ? (
                         <Image
