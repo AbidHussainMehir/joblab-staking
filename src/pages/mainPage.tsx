@@ -219,7 +219,7 @@ function MainPage() {
   console.log("data:", data?.chain?.chainId);
 
   return (
-    <div className=" flex justify-center lg:px-[270px]  bg-[#f4f7fc] dark:bg-black p-[20px] ">
+    <div className=" flex justify-center    bg-[#f4f7fc] dark:bg-black p-[20px] ">
       <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -234,7 +234,7 @@ function MainPage() {
       />
       <Tabs value={active}>
         <TabsHeader
-          className="bg-transparent grid lg:grid-cols-4 grid-cols-2 gap-2"
+          className=" max-w-screen-sm bg-transparent grid lg:grid-cols-4 grid-cols-2 gap-2"
           indicatorProps={{
             className: "bg-brand-blue-450 rounded ",
           }}
@@ -255,7 +255,7 @@ function MainPage() {
             </Tab>
           ))}
         </TabsHeader>
-        <TabsBody className="mt-[20px] max-w-screen-md">
+        <TabsBody className="mt-[20px] max-w-screen-sm ">
           {data1.map(({ value, desc, title, subTitle }) => (
             <TabPanel key={value} value={value}>
               <div className="rounded-lg flex flex-col items-center justify-center hover:shadow-containerbg-[#f4f7fc] dark:bg-transparent dark:border dark:border-brand-dark-100 border border-black  pt-5 px-3 pb-3">
@@ -316,12 +316,7 @@ function MainPage() {
                 )}
                 {value == "staking" && (
                   <div className="grid  w-full lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-1 gap-x-1">
-                    <div className="px-6 py-4 grid items-center hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]   grid-cols-2 border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg"
-                    style={{
-                      // background: `linear-gradient(to right,#f9fafb, #f4f5f7)`
-                      // background: `linear-gradient(to right, #fff #f9fafb)`
-
-                    }}
+                    <div className="px-6 py-4 grid items-center hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]   grid-cols-2 border dark:bg-gradient-to-r dark:from-[#f3f4f6] dark:to-[#000] dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg"
                     >
                       {theme == "light" ? (
                         <Image
@@ -353,8 +348,7 @@ function MainPage() {
                         </span>
                       </div>
                     </div>
-                    {/* #f3f4f6 var(--tw-gradient-to-position) */}
-                    <div className="px-6 py-4  hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb] grid grid-cols-2 items-center  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
+                    <div className="px-6 py-4  hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb] grid grid-cols-2 items-center  border  dark:bg-gradient-to-r dark:from-[#f3f4f6] dark:to-[#000] dark:border dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
                       {theme == "light" ? (
                         <Image
                           alt="Work logo"
