@@ -316,7 +316,7 @@ function MainPage() {
                 )}
                 {value == "staking" && (
                   <div className="grid  w-full lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-1 gap-x-1">
-                    <div className="px-6 py-4 grid items-center grid-cols-2 border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
+                    <div className="px-6 py-4 bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb] grid items-center grid-cols-2 border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
                       {theme == "light" ? (
                         <Image
                           alt="company"
@@ -347,8 +347,8 @@ function MainPage() {
                         </span>
                       </div>
                     </div>
-
-                    <div className="px-6 py-4 grid grid-cols-2 items-center  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
+                    {/* #f3f4f6 var(--tw-gradient-to-position) */}
+                    <div className="px-6 py-4  bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb] grid grid-cols-2 items-center  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
                       {theme == "light" ? (
                         <Image
                           alt="Work logo"
