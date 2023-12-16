@@ -3,8 +3,8 @@ import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import MenuIcon from "../icons/MenuIcon";
 import MobileMenu from "./MobileMenu";
-import logo from "../../../public/assets/logowhite.svg";
-import logoWhite from "../../../public/assets/mainlogo2.svg";
+import  logoWhite from "../../../public/assets/logowhite2.png";
+import logo from "../../../public/assets/mainlogo.svg";
 import {
   ArrowsPointingInIcon,
   ArrowsPointingOutIcon,

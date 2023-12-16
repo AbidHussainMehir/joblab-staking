@@ -255,7 +255,7 @@ function MainPage() {
             </Tab>
           ))}
         </TabsHeader>
-        <TabsBody className="mt-[20px]">
+        <TabsBody className="mt-[20px] max-w-screen-md">
           {data1.map(({ value, desc, title, subTitle }) => (
             <TabPanel key={value} value={value}>
               <div className="rounded-lg flex flex-col items-center justify-center hover:shadow-containerbg-[#f4f7fc] dark:bg-transparent dark:border dark:border-brand-dark-100 border border-black  pt-5 px-3 pb-3">
@@ -316,7 +316,13 @@ function MainPage() {
                 )}
                 {value == "staking" && (
                   <div className="grid  w-full lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-1 gap-x-1">
-                    <div className="px-6 py-4 bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb] grid items-center grid-cols-2 border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
+                    <div className="px-6 py-4 grid items-center hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]   grid-cols-2 border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg"
+                    style={{
+                      // background: `linear-gradient(to right,#f9fafb, #f4f5f7)`
+                      // background: `linear-gradient(to right, #fff #f9fafb)`
+
+                    }}
+                    >
                       {theme == "light" ? (
                         <Image
                           alt="company"
@@ -339,7 +345,7 @@ function MainPage() {
                         />
                       )}
                       <div>
-                        <span className="text-brand-black-50 dark:text-white text-[15px] font-medium">
+                        <span className="text-brand-black-50 dark:text-white text-[15px] font-medium text-item rounded-md text-item rounded-md px-2 py-2	">
                           Un-Staked JOBS:
                         </span>
                         <span className="ms-1 text-brand-black-50 dark:text-white text-[15px] font-medium">
@@ -348,7 +354,7 @@ function MainPage() {
                       </div>
                     </div>
                     {/* #f3f4f6 var(--tw-gradient-to-position) */}
-                    <div className="px-6 py-4  bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb] grid grid-cols-2 items-center  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
+                    <div className="px-6 py-4  hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb] grid grid-cols-2 items-center  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
                       {theme == "light" ? (
                         <Image
                           alt="Work logo"
@@ -371,7 +377,7 @@ function MainPage() {
                         />
                       )}
                       <div>
-                        <span className="text-brand-black-50 dark:text-white text-[15px] font-medium">
+                        <span className="text-brand-black-50 dark:text-white text-[15px] font-medium text-item rounded-md px-2 py-2">
                           Claimed WORK:
                         </span>
                         <span className="ms-1 text-brand-black-50 dark:text-white text-[15px] font-medium">
@@ -384,7 +390,7 @@ function MainPage() {
                         Total Jobs:0
                       </span> */}
                       <div className="flex justify-center  items-center flex-col py-[25px]">
-                        <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
+                        <span className="text-brand-black-50 dark:text-white text-[20px] font-medium text-item rounded-md px-2 py-2	">
                           Staked Jobs:
                           {stakeInfo && stakeInfo[0]
                             ? ethers.utils.formatEther(stakeInfo[0])
@@ -492,7 +498,7 @@ function MainPage() {
                         </span> */}
 
                         <div className="flex justify-center  items-center flex-col py-[25px]">
-                          <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
+                          <span className="text-brand-black-50 dark:text-white text-[20px] font-medium text-item rounded-md px-2 py-2">
                             Current WORK:
                             {stakeInfo && stakeInfo[0]
                               ? ethers.utils.formatEther(stakeInfo[0])
@@ -585,7 +591,8 @@ function MainPage() {
                           }}
                         />
                       </div>
-                      <div className="pbox py-5 my-[45px] relative  mx-auto w-full h-full max-w-[100px]  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
+                      <div className="flex items-center justify-center  w-[100%] mt-6">
+                      <div className=" py-5 my-[45px] relative  h-full w-[260px]  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white max-w-sm		">
                         {theme === "dark" ? (
                           <Image
                             alt="company"
@@ -601,6 +608,7 @@ function MainPage() {
                             className="object-contain "
                           />
                         )}
+                      </div>
                       </div>
                       <div className="grid grid-cols-2 flex items-center justify-center gap-x-2 mt-[20px] ">
                         <input
