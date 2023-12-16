@@ -380,7 +380,7 @@ function MainPage() {
                         </span>
                       </div>
                     </div>
-                    <div className="px-4 py-4 grid grid-cols-1 bg-gradient-to-l from-brand-blue-150 to-brand-blue-450 border border-brand-blue-450 border-[2px] dark:bg-transparent dark:border  mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
+                    <div className="px-4 py-4 grid grid-cols-1 dark:bg-gradient-to-l dark:from-brand-blue-150 dark:to-brand-blue-450 hover:bg-gradient-to-r hover:from-[#f3f4f6] hover:to-[#54799e] bg-gradient-to-r from-[#f3f4f6] to-[#a3b5c8]  border border-brand-blue-450 border-[2px] dark:bg-transparent dark:border  mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
                       {/* <span className="flex justify-center text-brand-black-50 dark:text-white text-[20px] font-medium">
                         Total Jobs:0
                       </span> */}
