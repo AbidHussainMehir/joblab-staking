@@ -317,7 +317,7 @@ function MainPage() {
                 {value == "staking" && (
                   <div className="grid  w-full lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-1 gap-x-2">
                     {/* from-[#f3f4f6] to-[#a3b5c8]  */}
-                    <div className=" shadow-md px-6 py-4 grid items-center hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#2b2bed4a] bg-gradient-to-r from-[#f9fafb] to-[#2b2bed29]   grid-cols-2 border dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg"
+                    <div className=" shadow-md px-6 py-4 grid items-center hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#2b2bed4a] bg-gradient-to-r from-[#f9fafb] to-[#2b2bed29]   grid-cols-2 border dark:bg-gradient-to-r dark:from-[#ada5a536] dark:to-[#0a0affad] dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg"
                     >
                       {theme == "light" ? (
                         <Image
@@ -341,15 +341,19 @@ function MainPage() {
                         />
                       )}
                       <div>
-                        <span className="text-brand-black-50 dark:text-white text-[15px] font-medium text-item rounded-md text-item rounded-md px-2 py-2	">
-                          Un-Staked JOBS:
+                      <div className="py-4">
+                        <span className="text-brand-black-50 dark:text-white text-[15px] text-item rounded-md text-item rounded-md px-2 py-1	" style={{fontWeight:400}}>
+                          Un-Staked JOBS
                         </span>
-                        <span className="ms-1 text-brand-black-50 dark:text-white text-[15px] font-medium">
-                          {/* {StaketokenBalance?.displayValue} */}
+                        </div>
+                        <div>
+                        <span className="text-brand-black-50 dark:text-white text-[15px] text-item rounded-md text-item rounded-md px-2 py-1	" style={{fontWeight:400}}>
+                          0
                         </span>
                       </div>
                     </div>
-                    <div className=" shadow-md	 px-6 py-4  hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#31a14e8a] bg-gradient-to-r from-[#f3f4f6] to-[#68c07f70] grid grid-cols-2 items-center  border  dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] dark:border dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
+                    </div>
+                    <div className=" shadow-md	 px-6 py-4  hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#31a14e8a] bg-gradient-to-r from-[#f3f4f6] to-[#68c07f70] grid grid-cols-2 items-center  border  dark:bg-gradient-to-r dark:from-[#000] dark:to-[#31a14e8a] dark:border dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
                       {theme == "light" ? (
                         <Image
                           alt="Work logo"
@@ -372,21 +376,30 @@ function MainPage() {
                         />
                       )}
                       <div>
-                        <span className="text-brand-black-50 dark:text-white text-[15px] font-medium text-item rounded-md px-2 py-2">
-                          Claimed WORK:
-                        </span>
-                        <span className="ms-1 text-brand-black-50 dark:text-white text-[15px] font-medium">
-                          {/* {tokenBalance?.displayValue} */}
+                      <div  className="py-4">
+                        <span className="text-brand-black-50 dark:text-white text-[15px] text-item rounded-md px-2 py-1" style={{fontWeight:400}}s>
+                          Claimed WORK
                         </span>
                       </div>
+                      <div>
+
+                      <div>
+                        <span className="text-brand-black-50 dark:text-white text-[15px] text-item rounded-md text-item rounded-md px-2 py-1	" style={{fontWeight:400}}>
+                          0
+                        </span>
+                      </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="shadow-md	 px-4 py-4 grid grid-cols-1 dark:bg-gradient-to-l dark:from-brand-blue-150 dark:to-brand-blue-450 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#2b2bed4a] bg-gradient-to-r from-[#f9fafb] to-[#2b2bed29]  border-[1px] dark:bg-transparent dark:border  mt-3 text-brand-blue-100 text-base rounded-lg ">
+                    <div className="shadow-md	 px-4 py-4 grid grid-cols-1  hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#2b2bed4a] bg-gradient-to-r from-[#f9fafb] to-[#2b2bed29]   border-[1px] dark:bg-gradient-to-r dark:from-[#ada5a536] dark:to-[#0a0affad]  dark:border  mt-3 text-brand-blue-100 text-base rounded-lg ">
                       {/* <span className="flex justify-center text-brand-black-50 dark:text-white text-[20px] font-medium">
                         Total Jobs:0
                       </span> */}
-                      <div className="flex justify-center  items-center flex-col py-[25px]">
-                        <span className="text-brand-black-50 dark:text-white text-[20px] font-medium text-item rounded-md px-2 py-2	">
-                          Staked Jobs:
+                      <div className="flex justify-center  items-center flex-col py-[10px]">
+                        <span className="text-brand-black-50 dark:text-white text-[20px] text-item rounded-md px-2 py-2	" style={{fontWeight:400}}>
+                          Staked Jobs
+                        </span>
+                        <span className="mt-2 text-brand-black-50 dark:text-white text-[20px] text-item rounded-md px-2 py-2	" style={{fontWeight:400}}>
                           {stakeInfo && stakeInfo[0]
                             ? ethers.utils.formatEther(stakeInfo[0])
                             : 0}
@@ -398,14 +411,15 @@ function MainPage() {
                           placeholder="0"
                           value={stakeAmount}
                           type="Number"
-                          className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
+                         
+                          className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border[1px] border dark:border-white border-[#000] placeholder:text-brand-gray-500 text-black dark:text-white dark:placeholder:text-slate-300	 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
                         />
                         <input
                           onChange={unstakeChangeHandler}
                           placeholder="0"
                           value={unstakeAmount}
                           type="Number"
-                          className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
+                          className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#000] placeholder:text-brand-gray-500 text-black dark:text-white dark:placeholder:text-slate-300 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
                         />
                         <Web3Button 
                           contractAddress={stakeAddress}
@@ -445,7 +459,7 @@ function MainPage() {
                               theme: "light",
                             });
                           }}
-                          style={{minWidth:'120px',padding:'5px'}}
+                          style={{minWidth:'120px',padding:'5px',fontWeight:400,background:'#0718C4',color:'#fff'}}
 
                         >
                           Stake
@@ -483,27 +497,28 @@ function MainPage() {
                               theme: "light",
                             });
                           }}
-                          style={{minWidth:'120px',padding:'5px'}}
+                          style={{minWidth:'120px',padding:'5px',fontWeight:400,background:'#0718C4',color:'#fff'}}
                         >
                           Unstake
                         </Web3Button>
                       </div>
                     </div>
-                    <div className=" shadow-md	px-4 py-4 flex justify-center items-center flex-col dark:bg-gradient-to-l dark:from-brand-green-50 dark:to-brand-green-100 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#31a14e8a] bg-gradient-to-r from-[#f3f4f6] to-[#68c07f70]  border-[1px] dark:bg-transparent  mt-3 text-brand-blue-100 text-base rounded-lg">
-                      <div className="flex justify-center items-center flex-col mt-[30px]">
+                    <div className=" shadow-md	px-4 py-4 flex justify-center items-center flex-col  hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#31a14e8a] bg-gradient-to-r from-[#f3f4f6] to-[#68c07f70]  border-[1px] dark:bg-gradient-to-r dark:from-[#000] dark:to-[#31a14e8a]  mt-3 text-brand-blue-100 text-base rounded-lg">
+                      <div className="flex justify-center items-center flex-col">
                         {/* <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
                           Claimed WORK:0
                         </span> */}
 
-                        <div className="flex justify-center  items-center flex-col py-[25px]">
-                          <span className="text-brand-black-50 dark:text-white text-[20px] font-medium text-item rounded-md px-2 py-2">
-                            Current WORK:
+                        <div className="flex justify-center  items-center flex-col py-[10px]">
+                          <span className="text-brand-black-50 dark:text-white text-[20px] text-item rounded-md px-2 py-2" style={{fontWeight:400}}>
+                            Current WORK
+                          </span>
+                          <span className="mt-2 mb-[15px] text-brand-black-50 dark:text-white text-[20px] text-item rounded-md px-2 py-2" style={{fontWeight:400}}>
+                           
                             {stakeInfo && stakeInfo[0]
                               ? ethers.utils.formatEther(stakeInfo[0])
                               : 0}
-                          </span>
-                          {/* <span className="text-brand-black-50 dark:text-white text-[13px] font-medium"></span> */}
-                        </div>
+                          </span>                        </div>
                       </div>
                       <div className="flex-grow" />
                       <Web3Button
@@ -537,7 +552,7 @@ function MainPage() {
                             theme: "light",
                           });
                         }}
-                        style={{minWidth:'120px',padding:'5px'}}
+                        style={{minWidth:'120px',padding:'5px',fontWeight:400,background:'#0718C4',color:'#fff'}}
 
                       >
                         Claim
