@@ -34,8 +34,8 @@ import {
 import { Switch } from "@headlessui/react";
 import ChainContext from "./context/Chain";
 import Image from "next/image";
-import logo from "../../public/assets/mainlogo2.svg";
-import logowhite from "../../public/assets/logowhite.svg";
+import logowhite from "../../public/assets/mainlogo2.svg";
+import logo from "../../public/assets/logowhite.svg";
 import EthermLogo from "../../public/assets/full-ethereum-logo-grey.svg";
 import PolygonLogo from "../../public/assets/full-polygon-logo.svg";
 import JobsTokenIcon from "../../public/assets/jobs-token-logo-transparent.svg";
@@ -625,7 +625,8 @@ function MainPage() {
                         )}
                       </div>
                       </div>
-                      <div className="grid h-[10px] grid-cols-2 flex items-center justify-center gap-x-2 mt-[20px] ">
+                      <div className="flex justify-center">
+                      <div className="grid h-[10px] grid-cols-2 flex items-center justify-center gap-x-2 mt-[20px]  " style={{maxWidth:'300px'}}>
                         <input
                           onChange={(e: any) =>
                             setDropTokenValue(e.target.value)
@@ -633,24 +634,24 @@ function MainPage() {
                           placeholder="0"
                           value={droptokenValue}
                           type="Number"
-                          className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
+                          className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#000] placeholder:text-brand-gray-500 text-black dark:text-white dark:placeholder:text-slate-300  leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
                         />
                         <Web3Button
                           action={sendDropToken}
                           contractAddress={stakingTokenAddress}
                           className={`[appearance:textfield][&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
-                          style={{height:"38px",minWidth:'120px',padding:'5px'}}
-
+                          style={{height:"30px",minWidth:'120px',padding:'5px',fontWeight:400,background:'#0718C4',color:'#fff'}}
                         >
                           Buy JOBS
                         </Web3Button>
                       </div>
+                      </div>
                       <span className="mt-10 flex justify-center text-center dark:text-white text-[green]">
-                        <span className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#f3f4f6] dark:to-[#000] text-base rounded-lg px-3">
+                        <span className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border   dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-3">
                         2500000.0 minted
                         </span>
                       </span>
-                      <span className="mt-3 py-2 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#f3f4f6] dark:to-[#000] text-base rounded-lg px-3">
+                      <span className="mt-3 py-2 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-3">
                       <span className=" text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
                         JobLab presale presents an opportunity for early
                         adopters and believers to purchase JOBS token with
@@ -668,7 +669,7 @@ function MainPage() {
                       </span>
                       <div className="flex justify-center">
                         <div className="justify-center mt-4">
-                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] text-base rounded-lg px-2">
+                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-2">
                             <span className="text-brand-black-50 dark:text-white text-[14px] font-medium pr-2">
                               Token Price:
                             </span>
@@ -676,30 +677,30 @@ function MainPage() {
                               $0.20
                             </span>
                           </div>
-                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] text-base rounded-lg px-2" >
+                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-2" >
                             <span className="text-brand-black-50 dark:text-white text-[14px] font-medium pr-2">
                               Supply:
                             </span>
                             <span className="text-brand-black-50 dark:text-white text-[14px] font-regular">
-                              21M (no inflation, ever)
+                              21M (no inflation)
                             </span>
                           </div>
-                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] text-base rounded-lg px-2">
+                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-2">
                             <span className="text-brand-black-50  dark:text-white text-[14px] font-regular">
                               Stake JOBS for WORK rewards
                             </span>
                           </div>
-                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] text-base rounded-lg px-2">
+                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-2">
                             <span className="text-brand-black-50  dark:text-white text-[14px] font-regular">
                               Use JOBS to Vote on Proposals
                             </span>
                           </div>
-                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] text-base rounded-lg px-2">
+                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-2">
                             <span className="text-brand-black-50  dark:text-white text-[14px] font-regular">
                               Use JOBS to hire or get hired
                             </span>
                           </div>
-                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] text-base rounded-lg px-2">
+                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-2">
                             <span className="text-brand-black-50 dark:text-white text-[14px] font-regular">
                               Multi-chain EVM token support
                             </span>
