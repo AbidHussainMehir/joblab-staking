@@ -377,7 +377,7 @@ function MainPage() {
                       )}
                       <div>
                       <div  className="py-4">
-                        <span className="text-brand-black-50 dark:text-white text-[15px] text-item rounded-md px-2 py-1" style={{fontWeight:400}}s>
+                        <span className="text-brand-black-50 dark:text-white text-[15px] text-item rounded-md px-2 py-1" style={{fontWeight:400}}>
                           Claimed WORK
                         </span>
                       </div>
