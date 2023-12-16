@@ -349,7 +349,7 @@ function MainPage() {
                         </span>
                       </div>
                     </div>
-                    <div className="px-6 py-4  hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb] grid grid-cols-2 items-center  border  dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] dark:border dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
+                    <div className="px-6 py-4  hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#31a14e] bg-gradient-to-r from-[#f3f4f6] to-[#68c07f] grid grid-cols-2 items-center  border  dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] dark:border dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
                       {theme == "light" ? (
                         <Image
                           alt="Work logo"
@@ -489,7 +489,7 @@ function MainPage() {
                         </Web3Button>
                       </div>
                     </div>
-                    <div className="px-4 py-4 flex justify-center items-center flex-col bg-gradient-to-l from-brand-green-50 to-brand-green-100 border border-[green] border-[2px] dark:bg-transparent  mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
+                    <div className="px-4 py-4 flex justify-center items-center flex-col dark:bg-gradient-to-l dark:from-brand-green-50 dark:to-brand-green-100 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#31a14e] bg-gradient-to-r from-[#f3f4f6] to-[#68c07f] border border-[green] border-[2px] dark:bg-transparent  mt-3 text-brand-blue-100 text-base rounded-lg bg-white">
                       <div className="flex justify-center items-center flex-col mt-[30px]">
                         {/* <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
                           Claimed WORK:0
