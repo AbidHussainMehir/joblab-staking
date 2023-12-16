@@ -100,7 +100,6 @@ const Navbar: FC<NavbarProps> = () => {
 
           <div className="justify-center text-[25px] whitespace-nowrap font-light lg:hidden flex items-center  text-brand-black-50 dark:text-brand-dark-50">
             <ConnectWallet
-              // theme={theme === "dark" ? "dark" : "light"}
               switchToActiveChain={true}
               modalTitle={"Web3 Connect"}
               modalSize={"wide"}
@@ -128,6 +127,8 @@ const Navbar: FC<NavbarProps> = () => {
                 // backgroundColor: "rgb(7 24 196 / var(--tw-bg-opacity))",
                 backgroundColor: "#0718c4",
               }}
+              theme={theme === "dark" ? "light" : "light"}
+
             />
             <button
               className="ml-2 cursor-pointer"

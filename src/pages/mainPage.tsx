@@ -316,7 +316,7 @@ function MainPage() {
                 )}
                 {value == "staking" && (
                   <div className="grid  w-full lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-1 gap-x-1">
-                    <div className="px-6 py-4 grid items-center hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]   grid-cols-2 border dark:bg-gradient-to-r dark:from-[#f3f4f6] dark:to-[#000] dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg"
+                    <div className="px-6 py-4 grid items-center hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]   grid-cols-2 border dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg"
                     >
                       {theme == "light" ? (
                         <Image
@@ -348,7 +348,7 @@ function MainPage() {
                         </span>
                       </div>
                     </div>
-                    <div className="px-6 py-4  hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb] grid grid-cols-2 items-center  border  dark:bg-gradient-to-r dark:from-[#f3f4f6] dark:to-[#000] dark:border dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
+                    <div className="px-6 py-4  hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb] grid grid-cols-2 items-center  border  dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] dark:border dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg">
                       {theme == "light" ? (
                         <Image
                           alt="Work logo"
@@ -406,7 +406,7 @@ function MainPage() {
                           type="Number"
                           className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
                         />
-                        <Web3Button
+                        <Web3Button 
                           contractAddress={stakeAddress}
                           action={async (contract: any) => {
                             await stakeTokenContract?.erc20.setAllowance(
@@ -604,7 +604,7 @@ function MainPage() {
                         )}
                       </div>
                       </div>
-                      <div className="grid grid-cols-2 flex items-center justify-center gap-x-2 mt-[20px] ">
+                      <div className="grid h-[10px] grid-cols-2 flex items-center justify-center gap-x-2 mt-[20px] ">
                         <input
                           onChange={(e: any) =>
                             setDropTokenValue(e.target.value)
@@ -617,13 +617,16 @@ function MainPage() {
                         <Web3Button
                           action={sendDropToken}
                           contractAddress={stakingTokenAddress}
-                          className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
+                          className={`[appearance:textfield][&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
+                          style={{height:"38px"}}
                         >
                           Buy JOBS
                         </Web3Button>
                       </div>
-                      <span className="mt-3 text-center dark:text-white text-[green]">
+                      <span className="mt-10 flex justify-center text-center dark:text-white text-[green]">
+                        <span className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#f3f4f6] dark:to-[#000] text-base rounded-lg px-3">
                         2500000.0 minted
+                        </span>
                       </span>
                       <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
                         JobLab presale presents an opportunity for early
@@ -641,39 +644,39 @@ function MainPage() {
                       </span>
                       <div className="flex justify-center">
                         <div className="justify-center mt-4">
-                          <div>
-                            <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-medium pr-2">
+                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] text-base rounded-lg px-2">
+                            <span className="text-brand-black-50 dark:text-white text-[14px] font-medium pr-2">
                               Token Price:
                             </span>
-                            <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
+                            <span className="text-brand-black-50 dark:text-white text-[14px] font-regular">
                               $0.20
                             </span>
                           </div>
-                          <div>
-                            <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-medium pr-2">
+                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] text-base rounded-lg px-2" >
+                            <span className="text-brand-black-50 dark:text-white text-[14px] font-medium pr-2">
                               Supply:
                             </span>
-                            <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
+                            <span className="text-brand-black-50 dark:text-white text-[14px] font-regular">
                               21M (no inflation, ever)
                             </span>
                           </div>
-                          <div>
-                            <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
+                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] text-base rounded-lg px-2">
+                            <span className="text-brand-black-50  dark:text-white text-[14px] font-regular">
                               Stake JOBS for WORK rewards
                             </span>
                           </div>
-                          <div>
-                            <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
+                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] text-base rounded-lg px-2">
+                            <span className="text-brand-black-50  dark:text-white text-[14px] font-regular">
                               Use JOBS to Vote on Proposals
                             </span>
                           </div>
-                          <div>
-                            <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
+                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] text-base rounded-lg px-2">
+                            <span className="text-brand-black-50  dark:text-white text-[14px] font-regular">
                               Use JOBS to hire or get hired
                             </span>
                           </div>
-                          <div>
-                            <span className="text-brand-black-50 pt-2 dark:text-white text-[14px] font-regular">
+                          <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#4b515f] dark:to-[#000] text-base rounded-lg px-2">
+                            <span className="text-brand-black-50 dark:text-white text-[14px] font-regular">
                               Multi-chain EVM token support
                             </span>
                           </div>
