@@ -444,6 +444,8 @@ function MainPage() {
                               theme: "light",
                             });
                           }}
+                          style={{minWidth:'120px',padding:'5px'}}
+
                         >
                           Stake
                         </Web3Button>
@@ -480,6 +482,7 @@ function MainPage() {
                               theme: "light",
                             });
                           }}
+                          style={{minWidth:'120px',padding:'5px'}}
                         >
                           Unstake
                         </Web3Button>
@@ -533,6 +536,8 @@ function MainPage() {
                             theme: "light",
                           });
                         }}
+                        style={{minWidth:'120px',padding:'5px'}}
+
                       >
                         Claim
                       </Web3Button>
@@ -618,7 +623,8 @@ function MainPage() {
                           action={sendDropToken}
                           contractAddress={stakingTokenAddress}
                           className={`[appearance:textfield][&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[15px] px-4 py-1  dark:bg-transparent border dark:border-white border-[#e5e7eb] placeholder:text-brand-gray-100 leading-[30px] w-full font-light  dark:text-white text-brand-gray-100 rounded-lg focus:ring-transparent focus:ring-0 focus:outline-none bg-brand-gray-150`}
-                          style={{height:"38px"}}
+                          style={{height:"38px",minWidth:'120px',padding:'5px'}}
+
                         >
                           Buy JOBS
                         </Web3Button>
