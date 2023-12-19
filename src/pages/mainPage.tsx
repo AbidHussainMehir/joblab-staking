@@ -523,7 +523,9 @@ function MainPage() {
                           Claimed WORK:
                         </span>
                         <span className="ms-1 text-brand-black-50 dark:text-white text-[15px] font-medium">
-                          {parseInt(tokenBalance?.displayValue).toFixed(2)}
+                          {parseInt(tokenBalance?.displayValue as any).toFixed(
+                            2
+                          )}
                         </span>
                       </div>
                     </div>
