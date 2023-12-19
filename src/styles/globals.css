@@ -44,3 +44,17 @@
   color: red;
   font-weight: 400;
 }
+
+:root {
+  --tw-border-opacity: 1;
+  --tw-gradient-from-position: 0; /* Add your position value here */
+  --tw-gradient-to-position: 100%; /* Add your position value here */
+  --tw-text-opacity: 1;
+}
+
+/* Example usage in a class */
+.text-item {
+  border-color: rgb(229 231 235 / var(--tw-border-opacity));
+  background: linear-gradient(var(--tw-gradient-stops));
+  color: rgb(31 41 55 / var(--tw-text-opacity));
+}

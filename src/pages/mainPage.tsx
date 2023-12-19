@@ -158,7 +158,7 @@ function MainPage() {
   ];
 
   const [droptokenValue, setDropTokenValue] = useState();
-  const [proposal , setProposal] = useState<any>()
+  const [proposal, setProposal] = useState<any>();
   const sendDropToken = async () => {
     if (droptokenValue && address) {
       try {
@@ -224,22 +224,18 @@ function MainPage() {
   const { contract: voteContract } = useContract(VOTING_CONTRACT_ADDRESS);
 
   const fetchProposals = async () => {
- 
-    const data = await voteContract?.call("getAllProposals")
-    console.log(data)
-    setProposal(data)
-  }
+    const data = await voteContract?.call("getAllProposals");
+    console.log(data);
+    setProposal(data);
+  };
   useEffect(() => {
-    if (address) { 
-      fetchProposals()
+    if (address) {
+      fetchProposals();
     }
-      
-  },[address])
-
+  }, [address]);
 
   const voteYes = async () => {
     try {
-      
       console.log(String(proposal[0].proposalId));
       const voteType = VoteType.For;
       const voteTx = await voteContract.vote(
@@ -247,89 +243,18 @@ function MainPage() {
         voteType,
         "I like this proposal"
       );
-       toast.success("Successfully Voted for Propoal.", {
-         position: "top-center",
-         autoClose: 5000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         progress: undefined,
-         theme: "light",
-       });
-        console.log(voteTx);
+      toast.success("Successfully Voted for Propoal.", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      console.log(voteTx);
     } catch (err) {
-       toast.error("Error while casting the Vote", {
-         position: "top-center",
-         autoClose: 5000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         progress: undefined,
-         theme: "light",
-       });
-      }
-  }
-  const voteNo = async () => {
-    try {
-      
-      console.log(String(proposal[0].proposalId));
-      const voteType = VoteType.Against
-      const voteTx = await voteContract.vote(
-        proposal[0].proposalId,
-        voteType,
-        "I don't like thsi proposal"
-      );
-       toast.success("Successfully Voted Againt Proposal", {
-         position: "top-center",
-         autoClose: 5000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         progress: undefined,
-         theme: "light",
-       });
-        console.log(voteTx)
-    } catch (err) {
-      console.log(err)
-       toast.error("Error while casting the Vote", {
-         position: "top-center",
-         autoClose: 5000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         progress: undefined,
-         theme: "light",
-       });
-      }
-  }
-  const voteAbstrain = async () => {
-    try {
-      
-      console.log(String(proposal[0].proposalId));
-      const voteType = VoteType.Abstain;
-      const voteTx = await voteContract.vote(
-        proposal[0].proposalId,
-        voteType,
-        "Don't want to answer this"
-      );
-      
-       toast.success("Successfully Voted", {
-         position: "top-center",
-         autoClose: 5000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         progress: undefined,
-         theme: "light",
-       });
-        console.log(voteTx);
-    } catch (err) {
-      console.log(err)
       toast.error("Error while casting the Vote", {
         position: "top-center",
         autoClose: 5000,
@@ -340,11 +265,77 @@ function MainPage() {
         progress: undefined,
         theme: "light",
       });
-
-      }
+    }
   };
+  const voteNo = async () => {
+    try {
+      console.log(String(proposal[0].proposalId));
+      const voteType = VoteType.Against;
+      const voteTx = await voteContract.vote(
+        proposal[0].proposalId,
+        voteType,
+        "I don't like thsi proposal"
+      );
+      toast.success("Successfully Voted Againt Proposal", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      console.log(voteTx);
+    } catch (err) {
+      console.log(err);
+      toast.error("Error while casting the Vote", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+  const voteAbstrain = async () => {
+    try {
+      console.log(String(proposal[0].proposalId));
+      const voteType = VoteType.Abstain;
+      const voteTx = await voteContract.vote(
+        proposal[0].proposalId,
+        voteType,
+        "Don't want to answer this"
+      );
 
-
+      toast.success("Successfully Voted", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      console.log(voteTx);
+    } catch (err) {
+      console.log(err);
+      toast.error("Error while casting the Vote", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
 
   return (
     <div className=" flex justify-center lg:px-[270px]  bg-[#f4f7fc] dark:bg-black p-[20px] ">
