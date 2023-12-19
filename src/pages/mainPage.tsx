@@ -221,39 +221,41 @@ function MainPage() {
   const [{ data, error }, switchNetwork] = useNetwork();
   console.log("data:", data?.chain?.chainId);
 
-  const { contract: voteContract } = useContract(VOTING_CONTRACT_ADDRESS);
+  const { contract: voteContract }: any = useContract(VOTING_CONTRACT_ADDRESS);
 
   const fetchProposals = async () => {
-    if (!proposal) { 
+    if (!proposal) {
       const data = await voteContract?.call("getAllProposals");
       console.log(data);
       setProposal(data);
     }
   };
   useEffect(() => {
-      fetchProposals(); 
+    fetchProposals();
   });
 
   const voteYes = async () => {
     try {
       console.log(String(proposal[0].proposalId));
       const voteType = VoteType.For;
-      const voteTx = await voteContract.vote(
-        proposal[0].proposalId,
-        voteType,
-        "I like this proposal"
-      );
-      toast.success("Successfully Voted for Propoal.", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      console.log(voteTx);
+      if (voteContract) {
+        const voteTx = await voteContract.vote(
+          proposal[0].proposalId,
+          voteType,
+          "I like this proposal"
+        );
+        toast.success("Successfully Voted for Propoal.", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        console.log(voteTx);
+      }
     } catch (err) {
       toast.error("Error while casting the Vote", {
         position: "top-center",
@@ -271,22 +273,24 @@ function MainPage() {
     try {
       console.log(String(proposal[0].proposalId));
       const voteType = VoteType.Against;
-      const voteTx = await voteContract.vote(
-        proposal[0].proposalId,
-        voteType,
-        "I don't like thsi proposal"
-      );
-      toast.success("Successfully Voted Againt Proposal", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      console.log(voteTx);
+      if (voteContract) {
+        const voteTx = await voteContract.vote(
+          proposal[0].proposalId,
+          voteType,
+          "I don't like thsi proposal"
+        );
+        toast.success("Successfully Voted Againt Proposal", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        console.log(voteTx);
+      }
     } catch (err) {
       console.log(err);
       toast.error("Error while casting the Vote", {
