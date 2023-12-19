@@ -224,15 +224,15 @@ function MainPage() {
   const { contract: voteContract } = useContract(VOTING_CONTRACT_ADDRESS);
 
   const fetchProposals = async () => {
-    const data = await voteContract?.call("getAllProposals");
-    console.log(data);
-    setProposal(data);
+    if (!proposal) { 
+      const data = await voteContract?.call("getAllProposals");
+      console.log(data);
+      setProposal(data);
+    }
   };
   useEffect(() => {
-    if (address) {
-      fetchProposals();
-    }
-  }, [address]);
+      fetchProposals(); 
+  });
 
   const voteYes = async () => {
     try {
