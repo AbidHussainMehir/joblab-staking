@@ -11,6 +11,7 @@ import {
 import { useTheme } from "next-themes";
 import {
   ConnectWallet,
+  ThirdwebSDK,
   Web3Button,
   useAddress,
   useContract,
@@ -18,6 +19,7 @@ import {
   useTokenBalance,
 } from "@thirdweb-dev/react";
 import { useNetwork } from "@thirdweb-dev/react";
+import { VoteType } from "@thirdweb-dev/sdk";
 
 import { useEffect, useState, useContext } from "react";
 import { Input } from "@/components/FormElements";
@@ -30,6 +32,7 @@ import {
   ETH_REWARD_TOKEN_ADDRESSES,
   ETH_STAKE_CONTRACT_ADDRESSES,
   ETH_STAKE_TOKEN_ADDRESSES,
+  VOTING_CONTRACT_ADDRESS,
 } from "./../components/addresses";
 import { Switch } from "@headlessui/react";
 import ChainContext from "./context/Chain";
@@ -155,7 +158,7 @@ function MainPage() {
   ];
 
   const [droptokenValue, setDropTokenValue] = useState();
-
+  const [proposal , setProposal] = useState<any>()
   const sendDropToken = async () => {
     if (droptokenValue && address) {
       try {
@@ -218,6 +221,131 @@ function MainPage() {
   const [{ data, error }, switchNetwork] = useNetwork();
   console.log("data:", data?.chain?.chainId);
 
+  const { contract: voteContract } = useContract(VOTING_CONTRACT_ADDRESS);
+
+  const fetchProposals = async () => {
+ 
+    const data = await voteContract?.call("getAllProposals")
+    console.log(data)
+    setProposal(data)
+  }
+  useEffect(() => {
+    if (address) { 
+      fetchProposals()
+    }
+      
+  },[address])
+
+
+  const voteYes = async () => {
+    try {
+      
+      console.log(String(proposal[0].proposalId));
+      const voteType = VoteType.For;
+      const voteTx = await voteContract.vote(
+        proposal[0].proposalId,
+        voteType,
+        "I like this proposal"
+      );
+       toast.success("Successfully Voted for Propoal.", {
+         position: "top-center",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "light",
+       });
+        console.log(voteTx);
+    } catch (err) {
+       toast.error("Error while casting the Vote", {
+         position: "top-center",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "light",
+       });
+      }
+  }
+  const voteNo = async () => {
+    try {
+      
+      console.log(String(proposal[0].proposalId));
+      const voteType = VoteType.Against
+      const voteTx = await voteContract.vote(
+        proposal[0].proposalId,
+        voteType,
+        "I don't like thsi proposal"
+      );
+       toast.success("Successfully Voted Againt Proposal", {
+         position: "top-center",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "light",
+       });
+        console.log(voteTx)
+    } catch (err) {
+      console.log(err)
+       toast.error("Error while casting the Vote", {
+         position: "top-center",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "light",
+       });
+      }
+  }
+  const voteAbstrain = async () => {
+    try {
+      
+      console.log(String(proposal[0].proposalId));
+      const voteType = VoteType.Abstain;
+      const voteTx = await voteContract.vote(
+        proposal[0].proposalId,
+        voteType,
+        "Don't want to answer this"
+      );
+      
+       toast.success("Successfully Voted", {
+         position: "top-center",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "light",
+       });
+        console.log(voteTx);
+    } catch (err) {
+      console.log(err)
+      toast.error("Error while casting the Vote", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      }
+  };
+
+
+
   return (
     <div className=" flex justify-center lg:px-[270px]  bg-[#f4f7fc] dark:bg-black p-[20px] ">
       <ToastContainer
@@ -268,6 +396,31 @@ function MainPage() {
                     )}
                     {subTitle && <span className="mt-2 mb-2">{subTitle}</span>}
                     {desc && <>{desc}</>}
+                    {proposal && (
+                      <div className="my-5 bg-green-300 p-5 rounded-lg animate-pulse">
+                        {proposal[0].description}
+                      </div>
+                    )}
+                    <div className="flex space-x-5 justify-around">
+                      <Web3Button
+                        action={() => voteYes()}
+                        contractAddress={VOTING_CONTRACT_ADDRESS}
+                      >
+                        Yes
+                      </Web3Button>
+                      <Web3Button
+                        action={() => voteNo()}
+                        contractAddress={VOTING_CONTRACT_ADDRESS}
+                      >
+                        No
+                      </Web3Button>
+                      <Web3Button
+                        action={() => voteAbstrain()}
+                        contractAddress={VOTING_CONTRACT_ADDRESS}
+                      >
+                        Abstain
+                      </Web3Button>
+                    </div>
 
                     <div className="flex-grow" />
                   </>
@@ -343,7 +496,7 @@ function MainPage() {
                           Un-Staked JOBS:
                         </span>
                         <span className="ms-1 text-brand-black-50 dark:text-white text-[15px] font-medium">
-                          {/* {StaketokenBalance?.displayValue} */}
+                          {StaketokenBalance?.displayValue}
                         </span>
                       </div>
                     </div>
@@ -375,7 +528,7 @@ function MainPage() {
                           Claimed WORK:
                         </span>
                         <span className="ms-1 text-brand-black-50 dark:text-white text-[15px] font-medium">
-                          {/* {tokenBalance?.displayValue} */}
+                          {parseInt(tokenBalance?.displayValue).toFixed(2)}
                         </span>
                       </div>
                     </div>
@@ -494,8 +647,10 @@ function MainPage() {
                         <div className="flex justify-center  items-center flex-col py-[25px]">
                           <span className="text-brand-black-50 dark:text-white text-[20px] font-medium">
                             Current WORK:
-                            {stakeInfo && stakeInfo[0]
-                              ? ethers.utils.formatEther(stakeInfo[0])
+                            {stakeInfo && stakeInfo[1]
+                              ? parseInt(
+                                  ethers.utils.formatEther(stakeInfo[1])
+                                ).toFixed(2)
                               : 0}
                           </span>
                           {/* <span className="text-brand-black-50 dark:text-white text-[13px] font-medium"></span> */}
