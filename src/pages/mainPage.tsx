@@ -694,7 +694,7 @@ function MainPage() {
                             style={{ fontWeight: 400 }}
                           >
                             {stakeInfo && stakeInfo[0]
-                              ? ethers.utils.formatEther(stakeInfo[0])
+                              ? parseInt(ethers.utils.formatEther(stakeInfo[1])).toFixed(2)
                               : 0}
                           </span>{" "}
                         </div>
