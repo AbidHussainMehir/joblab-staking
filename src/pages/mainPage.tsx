@@ -115,6 +115,11 @@ function MainPage() {
     }, 10000);
   }, []);
 
+  const weiToEther = (wei: any) => {
+    const ether = wei / Math.pow(10, 18);
+    return ether;
+  };
+
   const getCompanies = async () => {
     try {
       setLoading(true);
@@ -159,6 +164,7 @@ function MainPage() {
 
   const [droptokenValue, setDropTokenValue] = useState();
   const [proposal, setProposal] = useState<any>();
+  const [proposalVotes, setProposalVotes] = useState<any>();
   const sendDropToken = async () => {
     if (droptokenValue && address) {
       try {
@@ -224,10 +230,18 @@ function MainPage() {
   const { contract: voteContract }: any = useContract(VOTING_CONTRACT_ADDRESS);
 
   const fetchProposals = async () => {
-    if (!proposal) {
+    if (!proposalVotes) {
       const data = await voteContract?.call("getAllProposals");
-      console.log(data);
-      setProposal(data);
+      if (data) {
+        console.log(data[0].proposalId.toString());
+        const votesData = await voteContract?.call("proposalVotes", [
+          data[0].proposalId,
+        ]);
+        console.log(votesData);
+        console.log(data);
+        setProposalVotes(votesData);
+        setProposal(data);
+      }
     }
   };
   useEffect(() => {
@@ -391,31 +405,34 @@ function MainPage() {
                     )}
                     {subTitle && <span className="mt-2 mb-2">{subTitle}</span>}
                     {desc && <>{desc}</>}
-                    {proposal && (
-                      <div className="my-5 bg-green-300 p-5 rounded-lg animate-pulse">
-                        {proposal[0].description}
-                      </div>
+                    {proposal && proposalVotes && (
+                      <>
+                        <div className="my-5 bg-green-300 p-5 rounded-lg animate-pulse">
+                          {proposal[0].description}
+                        </div>
+
+                        <div className="flex space-x-5 justify-around">
+                          <Web3Button
+                            action={() => voteYes()}
+                            contractAddress={VOTING_CONTRACT_ADDRESS}
+                          >
+                            {weiToEther(proposalVotes.forVotes.toString())} Yes
+                          </Web3Button>
+                          <Web3Button
+                            action={() => voteNo()}
+                            contractAddress={VOTING_CONTRACT_ADDRESS}
+                          >
+                            {weiToEther(proposalVotes.againstVotes.toString())} No
+                          </Web3Button>
+                          <Web3Button
+                            action={() => voteAbstrain()}
+                            contractAddress={VOTING_CONTRACT_ADDRESS}
+                          >
+                            {weiToEther(proposalVotes.abstainVotes.toString())} Abstain
+                          </Web3Button>
+                        </div>
+                      </>
                     )}
-                    <div className="flex space-x-5 justify-around">
-                      <Web3Button
-                        action={() => voteYes()}
-                        contractAddress={VOTING_CONTRACT_ADDRESS}
-                      >
-                        Yes
-                      </Web3Button>
-                      <Web3Button
-                        action={() => voteNo()}
-                        contractAddress={VOTING_CONTRACT_ADDRESS}
-                      >
-                        No
-                      </Web3Button>
-                      <Web3Button
-                        action={() => voteAbstrain()}
-                        contractAddress={VOTING_CONTRACT_ADDRESS}
-                      >
-                        Abstain
-                      </Web3Button>
-                    </div>
 
                     <div className="flex-grow" />
                   </>
@@ -694,7 +711,9 @@ function MainPage() {
                             style={{ fontWeight: 400 }}
                           >
                             {stakeInfo && stakeInfo[0]
-                              ? ethers.utils.formatEther(stakeInfo[0])
+                              ? parseInt(
+                                  ethers.utils.formatEther(stakeInfo[1])
+                                ).toFixed(2)
                               : 0}
                           </span>{" "}
                         </div>
