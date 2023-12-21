@@ -45,6 +45,8 @@ import JobsTokenIcon from "../../public/assets/jobs-token-logo-transparent.svg";
 import WorkTokenIcon from "../../public/assets/work-token-logo-transparent.svg";
 import JobsTokenWhiteIcon from "../../public/assets/jobs-token-logo-white-transparent.svg";
 import WorkTokenWhiteIcon from "../../public/assets/work-token-logo-white-transparent.svg";
+import ReCharts from "../components/Charts/rechat";
+import ReCharts2 from "../components/Charts/rechat2";
 import axios from "axios";
 function MainPage() {
   const [jobCount, setCompanies] = useState<any[]>([]);
@@ -396,7 +398,7 @@ function MainPage() {
           {data1.map(({ value, desc, title, subTitle }) => (
             <TabPanel key={value} value={value}>
               <div className="rounded-lg flex flex-col items-center justify-center hover:shadow-containerbg-[#f4f7fc] dark:bg-transparent dark:border dark:border-brand-dark-100 border border-black  pt-5 px-3 pb-3">
-                {(value == "staking" || value == "governance") && (
+                {value == "governance" && (
                   <>
                     {title && (
                       <h4 className="text-[25px] text-center text-brand-black-50 dark:text-brand-dark-50 mb-1 leading-6 font-medium">
@@ -422,13 +424,15 @@ function MainPage() {
                             action={() => voteNo()}
                             contractAddress={VOTING_CONTRACT_ADDRESS}
                           >
-                            {weiToEther(proposalVotes.againstVotes.toString())} No
+                            {weiToEther(proposalVotes.againstVotes.toString())}{" "}
+                            No
                           </Web3Button>
                           <Web3Button
                             action={() => voteAbstrain()}
                             contractAddress={VOTING_CONTRACT_ADDRESS}
                           >
-                            {weiToEther(proposalVotes.abstainVotes.toString())} Abstain
+                            {weiToEther(proposalVotes.abstainVotes.toString())}{" "}
+                            Abstain
                           </Web3Button>
                         </div>
                       </>
@@ -440,6 +444,12 @@ function MainPage() {
 
                 {value == "staking" && (
                   <>
+                    {title && (
+                      <h4 className="text-[25px] text-center text-brand-black-50 dark:text-brand-dark-50 mb-1 leading-6 font-medium">
+                        {title}
+                      </h4>
+                    )}
+                    {subTitle && <span className="mt-2 mb-2">{subTitle}</span>}
                     <div className="flex p-2">
                       <Image
                         alt="company"
@@ -926,11 +936,23 @@ function MainPage() {
 
                 {value == "analytics" && (
                   <div className="w-full bg-[#f4f7fc] dark:bg-[#0000]">
-                    <div className="pb-[100px] pbox mt-14">
-                      <Header title="Total Jobs Count" />
-                      <div className="flex flex-col gap-y-10 mt-5">
-                        <div className="flex items-center justify-center p-5 bg-white dark:bg-transparent dark:border dark:border-brand-dark-100 h-[300px] shadow-container rounded-lg">
-                          <LineChart data={jobCount} />
+                    <div className="pb-[20px] pbox mt-5">
+                      <div className="text-brand-black-50 flex items-center justify-center  w-full text-center">
+                        <span className="text-brand-black-50 dark:text-white text-[24px] font-medium">
+                          JOBS Distribution
+                        </span>
+                      </div>
+                      <div className="flex flex-col gap-y-5 mt-5">
+                        <div className="flex items-center shadow-xl justify-center p-5 bg-white dark:bg-transparent dark:border dark:border-brand-dark-100 h-[300px] shadow-container rounded-lg">
+                          <ReCharts />
+                        </div>
+                        <div className="mt-5 text-brand-black-50 flex items-center justify-center  w-full text-center">
+                          <span className="text-brand-black-50 dark:text-white text-[24px] font-medium">
+                            WORK Distribution
+                          </span>
+                        </div>
+                        <div className="flex items-center shadow-xl justify-center p-5 pt-2 bg-white dark:bg-transparent dark:border dark:border-brand-dark-100 h-[300px] shadow-container rounded-lg">
+                          <ReCharts2 />
                         </div>
                       </div>
                     </div>

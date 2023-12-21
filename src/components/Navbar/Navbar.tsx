@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import MenuIcon from "../icons/MenuIcon";
 import MobileMenu from "./MobileMenu";
-import  logoWhite from "../../../public/assets/logowhite2.png";
+import logoWhite from "../../../public/assets/logowhite2.png";
 import logo from "../../../public/assets/mainlogo.svg";
 import {
   ArrowsPointingInIcon,
@@ -128,7 +128,6 @@ const Navbar: FC<NavbarProps> = () => {
                 backgroundColor: "#0718c4",
               }}
               theme={theme === "dark" ? "light" : "light"}
-
             />
             <button
               className="ml-2 cursor-pointer"
@@ -189,7 +188,6 @@ const Navbar: FC<NavbarProps> = () => {
             )}
           </button>
           <ConnectWallet
-            // theme={theme === "dark" ? "dark" : "light"}
             switchToActiveChain={true}
             modalTitle={"Web3 Connect"}
             modalSize={"wide"}
@@ -217,6 +215,7 @@ const Navbar: FC<NavbarProps> = () => {
               // backgroundColor: "rgb(7 24 196 / var(--tw-bg-opacity))",
               backgroundColor: "#0718c4",
             }}
+            theme={theme === "dark" ? "dark" : "light"}
           />
         </div>
         {/* <div className="lg:hidden flex items-center">
