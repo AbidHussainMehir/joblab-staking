@@ -780,6 +780,7 @@ function MainPage() {
                         {title}
                       </h4>
                     )}
+
                     <div className="px-6 py-4 grid grid-cols-1 ">
                       <div className="flex justify-center">
                         <Image
@@ -819,7 +820,31 @@ function MainPage() {
                           }}
                         />
                       </div>
-                      <div className="flex items-center justify-center  w-[100%] mt-6">
+                      <div
+                        style={{ backgroundColor: "rgb(7, 24, 196)" }}
+                        className="w-full max-w-[300px] m-auto shadow-blue-500/100  drop-shadow-lg         inset-0  flex flex-col items-center justify-center overflow-y-auto p-2 h-[180px] rounded-lg shadow-2xl"
+                      >
+                        <div className="flex items-center justify-center shadow-xl drop-shadow-lg w-[100%]">
+                          <div className=" py-4 h-[140px] cursor-pointer	  my-[5px] relative w-[260px]  border dark:bg-transparent dark:border dark:border-brand-dark-200 mt-3 text-brand-blue-100 text-base rounded-lg bg-white shadow-2xl drop-shadow-lg max-w-sm		">
+                            {theme === "dark" ? (
+                              <Image
+                                alt="company"
+                                src={logo}
+                                fill
+                                className="object-contain "
+                              />
+                            ) : (
+                              <Image
+                                alt="company"
+                                src={logowhite}
+                                fill
+                                className="object-contain "
+                              />
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      {/* <div className="flex items-center justify-center  w-[100%] mt-6">
                         <div className=" py-5 my-[45px] relative  h-full w-[260px]  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white max-w-sm		">
                           {theme === "dark" ? (
                             <Image
@@ -837,7 +862,7 @@ function MainPage() {
                             />
                           )}
                         </div>
-                      </div>
+                      </div> */}
                       <div className="flex justify-center">
                         <div
                           className="grid h-[10px] grid-cols-2 flex items-center justify-center gap-x-2 mt-[20px]  "
