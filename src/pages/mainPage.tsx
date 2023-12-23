@@ -24,7 +24,6 @@ import { VoteType } from "@thirdweb-dev/sdk";
 import { useEffect, useState, useContext } from "react";
 import { Input } from "@/components/FormElements";
 import Header from "@/components/Typography/Header";
-import LineChart from "@/components/chart/line-chart";
 import {
   REWARD_TOKEN_ADDRESSES,
   STAKE_CONTRACT_ADDRESSES,
