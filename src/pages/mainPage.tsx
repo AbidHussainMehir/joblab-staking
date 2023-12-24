@@ -719,12 +719,12 @@ function MainPage() {
                             className="mt-2 mb-[15px] text-brand-black-50 dark:text-white text-[20px] text-item rounded-md px-2 py-2"
                             style={{ fontWeight: 400 }}
                           >
-                            {stakeInfo && stakeInfo[0]
-                              ? parseInt(
+                            {stakeInfo &&
+                              (
+                               parseInt(
                                   ethers.utils.formatEther(stakeInfo[1])
                                 ).toFixed(2)
-                              ? parseInt(ethers.utils.formatEther(stakeInfo[1])).toFixed(2)
-                              : 0}
+                              )}
                           </span>{" "}
                         </div>
                       </div>
