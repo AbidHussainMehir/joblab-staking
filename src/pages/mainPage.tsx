@@ -24,7 +24,6 @@ import { VoteType } from "@thirdweb-dev/sdk";
 import { useEffect, useState, useContext } from "react";
 import { Input } from "@/components/FormElements";
 import Header from "@/components/Typography/Header";
-import LineChart from "@/components/chart/line-chart";
 import {
   REWARD_TOKEN_ADDRESSES,
   STAKE_CONTRACT_ADDRESSES,
@@ -45,6 +44,8 @@ import JobsTokenIcon from "../../public/assets/jobs-token-logo-transparent.svg";
 import WorkTokenIcon from "../../public/assets/work-token-logo-transparent.svg";
 import JobsTokenWhiteIcon from "../../public/assets/jobs-token-logo-white-transparent.svg";
 import WorkTokenWhiteIcon from "../../public/assets/work-token-logo-white-transparent.svg";
+import ReCharts from "../components/Charts/rechat";
+import ReCharts2 from "../components/Charts/rechat2";
 import axios from "axios";
 function MainPage() {
   const [jobCount, setCompanies] = useState<any[]>([]);
@@ -115,6 +116,11 @@ function MainPage() {
     }, 10000);
   }, []);
 
+  const weiToEther = (wei: any) => {
+    const ether = wei / Math.pow(10, 18);
+    return ether;
+  };
+
   const getCompanies = async () => {
     try {
       setLoading(true);
@@ -159,6 +165,7 @@ function MainPage() {
 
   const [droptokenValue, setDropTokenValue] = useState();
   const [proposal, setProposal] = useState<any>();
+  const [proposalVotes, setProposalVotes] = useState<any>();
   const sendDropToken = async () => {
     if (droptokenValue && address) {
       try {
@@ -224,10 +231,18 @@ function MainPage() {
   const { contract: voteContract }: any = useContract(VOTING_CONTRACT_ADDRESS);
 
   const fetchProposals = async () => {
-    if (!proposal) {
+    if (!proposalVotes) {
       const data = await voteContract?.call("getAllProposals");
-      console.log(data);
-      setProposal(data);
+      if (data) {
+        console.log(data[0].proposalId.toString());
+        const votesData = await voteContract?.call("proposalVotes", [
+          data[0].proposalId,
+        ]);
+        console.log(votesData);
+        console.log(data);
+        setProposalVotes(votesData);
+        setProposal(data);
+      }
     }
   };
   useEffect(() => {
@@ -382,7 +397,7 @@ function MainPage() {
           {data1.map(({ value, desc, title, subTitle }) => (
             <TabPanel key={value} value={value}>
               <div className="rounded-lg flex flex-col items-center justify-center hover:shadow-containerbg-[#f4f7fc] dark:bg-transparent dark:border dark:border-brand-dark-100 border border-black  pt-5 px-3 pb-3">
-                {(value == "staking" || value == "governance") && (
+                {value == "governance" && (
                   <>
                     {title && (
                       <h4 className="text-[25px] text-center text-brand-black-50 dark:text-brand-dark-50 mb-1 leading-6 font-medium">
@@ -391,31 +406,36 @@ function MainPage() {
                     )}
                     {subTitle && <span className="mt-2 mb-2">{subTitle}</span>}
                     {desc && <>{desc}</>}
-                    {proposal && (
-                      <div className="my-5 bg-green-300 p-5 rounded-lg animate-pulse">
-                        {proposal[0].description}
-                      </div>
+                    {proposal && proposalVotes && (
+                      <>
+                        <div className="my-5 bg-green-300 p-5 rounded-lg animate-pulse">
+                          {proposal[0].description}
+                        </div>
+
+                        <div className="flex space-x-5 justify-around">
+                          <Web3Button
+                            action={() => voteYes()}
+                            contractAddress={VOTING_CONTRACT_ADDRESS}
+                          >
+                            {weiToEther(proposalVotes.forVotes.toString())} Yes
+                          </Web3Button>
+                          <Web3Button
+                            action={() => voteNo()}
+                            contractAddress={VOTING_CONTRACT_ADDRESS}
+                          >
+                            {weiToEther(proposalVotes.againstVotes.toString())}{" "}
+                            No
+                          </Web3Button>
+                          <Web3Button
+                            action={() => voteAbstrain()}
+                            contractAddress={VOTING_CONTRACT_ADDRESS}
+                          >
+                            {weiToEther(proposalVotes.abstainVotes.toString())}{" "}
+                            Abstain
+                          </Web3Button>
+                        </div>
+                      </>
                     )}
-                    <div className="flex space-x-5 justify-around">
-                      <Web3Button
-                        action={() => voteYes()}
-                        contractAddress={VOTING_CONTRACT_ADDRESS}
-                      >
-                        Yes
-                      </Web3Button>
-                      <Web3Button
-                        action={() => voteNo()}
-                        contractAddress={VOTING_CONTRACT_ADDRESS}
-                      >
-                        No
-                      </Web3Button>
-                      <Web3Button
-                        action={() => voteAbstrain()}
-                        contractAddress={VOTING_CONTRACT_ADDRESS}
-                      >
-                        Abstain
-                      </Web3Button>
-                    </div>
 
                     <div className="flex-grow" />
                   </>
@@ -423,6 +443,12 @@ function MainPage() {
 
                 {value == "staking" && (
                   <>
+                    {title && (
+                      <h4 className="text-[25px] text-center text-brand-black-50 dark:text-brand-dark-50 mb-1 leading-6 font-medium">
+                        {title}
+                      </h4>
+                    )}
+                    {subTitle && <span className="mt-2 mb-2">{subTitle}</span>}
                     <div className="flex p-2">
                       <Image
                         alt="company"
@@ -694,6 +720,9 @@ function MainPage() {
                             style={{ fontWeight: 400 }}
                           >
                             {stakeInfo && stakeInfo[0]
+                              ? parseInt(
+                                  ethers.utils.formatEther(stakeInfo[1])
+                                ).toFixed(2)
                               ? parseInt(ethers.utils.formatEther(stakeInfo[1])).toFixed(2)
                               : 0}
                           </span>{" "}
@@ -751,6 +780,7 @@ function MainPage() {
                         {title}
                       </h4>
                     )}
+
                     <div className="px-6 py-4 grid grid-cols-1 ">
                       <div className="flex justify-center">
                         <Image
@@ -790,7 +820,31 @@ function MainPage() {
                           }}
                         />
                       </div>
-                      <div className="flex items-center justify-center  w-[100%] mt-6">
+                      <div
+                        style={{ backgroundColor: "rgb(7, 24, 196)" }}
+                        className="w-full max-w-[300px] m-auto shadow-blue-500/100  drop-shadow-lg         inset-0  flex flex-col items-center justify-center overflow-y-auto p-2 h-[180px] rounded-lg shadow-2xl"
+                      >
+                        <div className="flex items-center justify-center shadow-xl drop-shadow-lg w-[100%]">
+                          <div className=" py-4 h-[140px] cursor-pointer	  my-[5px] relative w-[260px]  border dark:bg-transparent dark:border dark:border-brand-dark-200 mt-3 text-brand-blue-100 text-base rounded-lg bg-white shadow-2xl drop-shadow-lg max-w-sm		">
+                            {theme === "dark" ? (
+                              <Image
+                                alt="company"
+                                src={logo}
+                                fill
+                                className="object-contain "
+                              />
+                            ) : (
+                              <Image
+                                alt="company"
+                                src={logowhite}
+                                fill
+                                className="object-contain "
+                              />
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      {/* <div className="flex items-center justify-center  w-[100%] mt-6">
                         <div className=" py-5 my-[45px] relative  h-full w-[260px]  border dark:bg-transparent dark:border dark:border-brand-dark-100 mt-3 text-brand-blue-100 text-base rounded-lg bg-white max-w-sm		">
                           {theme === "dark" ? (
                             <Image
@@ -808,7 +862,7 @@ function MainPage() {
                             />
                           )}
                         </div>
-                      </div>
+                      </div> */}
                       <div className="flex justify-center">
                         <div
                           className="grid h-[10px] grid-cols-2 flex items-center justify-center gap-x-2 mt-[20px]  "
@@ -907,11 +961,23 @@ function MainPage() {
 
                 {value == "analytics" && (
                   <div className="w-full bg-[#f4f7fc] dark:bg-[#0000]">
-                    <div className="pb-[100px] pbox mt-14">
-                      <Header title="Total Jobs Count" />
-                      <div className="flex flex-col gap-y-10 mt-5">
-                        <div className="flex items-center justify-center p-5 bg-white dark:bg-transparent dark:border dark:border-brand-dark-100 h-[300px] shadow-container rounded-lg">
-                          <LineChart data={jobCount} />
+                    <div className="pb-[20px] pbox mt-5">
+                      <div className="text-brand-black-50 flex items-center justify-center  w-full text-center">
+                        <span className="text-brand-black-50 dark:text-white text-[24px] font-medium">
+                          JOBS Distribution
+                        </span>
+                      </div>
+                      <div className="flex flex-col gap-y-5 mt-5">
+                        <div className="flex items-center shadow-xl justify-center p-5 bg-white dark:bg-transparent dark:border dark:border-brand-dark-100 h-[300px] shadow-container rounded-lg">
+                          <ReCharts />
+                        </div>
+                        <div className="mt-5 text-brand-black-50 flex items-center justify-center  w-full text-center">
+                          <span className="text-brand-black-50 dark:text-white text-[24px] font-medium">
+                            WORK Distribution
+                          </span>
+                        </div>
+                        <div className="flex items-center shadow-xl justify-center p-5 pt-2 bg-white dark:bg-transparent dark:border dark:border-brand-dark-100 h-[300px] shadow-container rounded-lg">
+                          <ReCharts2 />
                         </div>
                       </div>
                     </div>
