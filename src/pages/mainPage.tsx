@@ -166,6 +166,8 @@ function MainPage() {
   const [droptokenValue, setDropTokenValue] = useState();
   const [proposal, setProposal] = useState<any>();
   const [proposalVotes, setProposalVotes] = useState<any>();
+  const [yourVote, setYourVote] = useState<any>();
+  const [hasVoted,setHasVoted] = useState<boolean>(true)
   const sendDropToken = async () => {
     if (droptokenValue && address) {
       try {
@@ -226,18 +228,42 @@ function MainPage() {
     useTokenBalance(stakeTokenContract, address);
 
   const [{ data, error }, switchNetwork] = useNetwork();
-  console.log("data:", data?.chain?.chainId);
+  
 
   const { contract: voteContract }: any = useContract(VOTING_CONTRACT_ADDRESS);
 
   const fetchProposals = async () => {
     if (!proposalVotes) {
       const data = await voteContract?.call("getAllProposals");
+      console.log(data)
       if (data) {
         console.log(data[0].proposalId.toString());
         const votesData = await voteContract?.call("proposalVotes", [
           data[0].proposalId,
         ]);
+
+        const hasVoted = await voteContract?.call("hasVoted", [
+          data[0].proposalId,address
+        ]);
+        console.log(hasVoted)
+
+        const getVotes = await voteContract?.call("getVotes", [
+          address,
+          data[0].startBlock,
+        ]);
+        console.log(weiToEther(getVotes.toString()));
+        setYourVote(weiToEther(getVotes.toString()));
+
+
+        const proposalSnapshot = await voteContract?.call("proposalSnapshot", [data[0].proposalId]);
+        console.log(proposalSnapshot.toString())
+
+        if (hasVoted) {
+          setHasVoted(true)
+        } else {
+          hasVoted(false)
+        }
+
         console.log(votesData);
         console.log(data);
         setProposalVotes(votesData);
@@ -396,7 +422,7 @@ function MainPage() {
         <TabsBody className="mt-[20px] max-w-screen-sm">
           {data1.map(({ value, desc, title, subTitle }) => (
             <TabPanel key={value} value={value}>
-              <div className="rounded-lg flex flex-col items-center justify-center hover:shadow-containerbg-[#f4f7fc] dark:bg-transparent dark:border dark:border-brand-dark-100 border border-black  pt-5 px-3 pb-3">
+              <div className="rounded-lg flex flex-col items-center justify-center hover:shadow-containerbg-[#f4f7fc] dark:bg-transparent dark:border dark:border-brand-dark-100 border border-black  pt-5 px-3 pb-8">
                 {value == "governance" && (
                   <>
                     {title && (
@@ -407,34 +433,61 @@ function MainPage() {
                     {subTitle && <span className="mt-2 mb-2">{subTitle}</span>}
                     {desc && <>{desc}</>}
                     {proposal && proposalVotes && (
-                      <>
-                        <div className="my-5 bg-green-300 p-5 rounded-lg animate-pulse">
+                      <div className="shadow-lg hover:shadow-blue-400 hover:scale-105 duration-500 ease-in px-5 py-8 rounded-xl mt-5 bg-slate-100">
+                        <div className="my-5 text-center bg-green-300 p-5 rounded-lg hover:animate-none animate-pulse">
                           {proposal[0].description}
                         </div>
 
                         <div className="flex space-x-5 justify-around">
                           <Web3Button
+                            isDisabled={hasVoted}
+                            style={
+                              hasVoted
+                                ? { backgroundColor: "gray" }
+                                : { backgroundColor: "green" }
+                            }
                             action={() => voteYes()}
                             contractAddress={VOTING_CONTRACT_ADDRESS}
                           >
-                            {weiToEther(proposalVotes.forVotes.toString())} Yes
+                            Yes
                           </Web3Button>
                           <Web3Button
+                            isDisabled={hasVoted}
+                            style={
+                              hasVoted
+                                ? { backgroundColor: "gray" }
+                                : { backgroundColor: "red" }
+                            }
                             action={() => voteNo()}
                             contractAddress={VOTING_CONTRACT_ADDRESS}
                           >
-                            {weiToEther(proposalVotes.againstVotes.toString())}{" "}
                             No
                           </Web3Button>
                           <Web3Button
+                            isDisabled={hasVoted}
+                            style={
+                              hasVoted
+                                ? { backgroundColor: "gray" }
+                                : { backgroundColor: "black" ,color:"white" }
+                            }
                             action={() => voteAbstrain()}
                             contractAddress={VOTING_CONTRACT_ADDRESS}
                           >
-                            {weiToEther(proposalVotes.abstainVotes.toString())}{" "}
                             Abstain
                           </Web3Button>
                         </div>
-                      </>
+                        <div className="flex mt-5 justify-around">
+                          <div className="bg-green-500 rounded-lg  text-white font-bold py-2 px-8 ">
+                            {weiToEther(proposalVotes.forVotes.toString())}
+                          </div>
+                          <div className="bg-red-500 rounded-lg  text-white font-bold py-2 px-8 ">
+                            {weiToEther(proposalVotes.againstVotes.toString())}{" "}
+                          </div>
+                          <div className="bg-gray-600 rounded-lg  text-white font-bold py-2 px-8 ">
+                            {weiToEther(proposalVotes.abstainVotes.toString())}{" "}
+                          </div>
+                        </div>
+                      </div>
                     )}
 
                     <div className="flex-grow" />
@@ -719,11 +772,10 @@ function MainPage() {
                             className="mt-2 mb-[15px] text-brand-black-50 dark:text-white text-[20px] text-item rounded-md px-2 py-2"
                             style={{ fontWeight: 400 }}
                           >
-                            {stakeInfo && stakeInfo[0]
-                              ? parseInt(
-                                  ethers.utils.formatEther(stakeInfo[1])
-                                ).toFixed(2)
-                              : 0}
+                            {stakeInfo &&
+                              parseInt(
+                                ethers.utils.formatEther(stakeInfo[1])
+                              ).toFixed(2)}
                           </span>{" "}
                         </div>
                       </div>
