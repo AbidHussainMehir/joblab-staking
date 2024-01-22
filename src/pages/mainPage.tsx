@@ -895,7 +895,11 @@ function MainPage() {
                       </div>
                       <span className="mt-10 flex justify-center text-center dark:text-white text-[green]">
                         <span className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border   dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-3">
-                          2500000.0 minted
+                          {stakeInfo && StaketokenBalance &&  stakeInfo[0]
+                            ? (parseFloat(ethers.utils.formatEther(stakeInfo[0])) +
+                              parseFloat(StaketokenBalance?.displayValue))
+                            : 0}{" "}
+                          minted
                         </span>
                       </span>
                       <span className="mt-3 py-2 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-3">
