@@ -106,7 +106,7 @@ const Example = () => {
           textAnchor={textAnchor}
           fill={payload.color}
         >
-          {`(${(percent * 100).toFixed(2)}%)`}
+          {`(${(percent * 100)}%)`}
         </text>
       </g>
     );

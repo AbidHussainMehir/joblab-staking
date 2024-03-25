@@ -80,7 +80,7 @@ const Example = () => {
     const sy = cy + (outerRadius + 10) * sin;
     const mx = cx + (outerRadius + 30) * cos;
     const my = cy + (outerRadius + 30) * sin;
-    const ex = mx + (cos >= 0 ? 1 : -1) * 22;
+    const ex = mx + (cos >= 0 ? 1 : -1) * -2;
     const ey = my;
     const textAnchor = cos >= 0 ? "start" : "end";
 
@@ -115,13 +115,13 @@ const Example = () => {
         <circle cx={ex} cy={ey} r={2} fill={payload.color} stroke="none" />
 
         <text
-          x={ex + (cos >= 0 ? 1 : -1) * 12}
+          x={ex + (cos >= 0 ? 1 : -1) * 1}
           y={ey}
-          dy={18}
+          dy={5}
           textAnchor={textAnchor}
           fill={payload.color}
         >
-          {`(${(percent * 100).toFixed(2)}%)`}
+          {`(${(percent * 100)}%)`}
         </text>
       </g>
     );

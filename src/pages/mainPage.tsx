@@ -167,7 +167,7 @@ function MainPage() {
   const [proposal, setProposal] = useState<any>();
   const [proposalVotes, setProposalVotes] = useState<any>();
   const [yourVote, setYourVote] = useState<any>();
-  const [hasVoted,setHasVoted] = useState<boolean>(true)
+  const [hasVoted, setHasVoted] = useState<boolean>(true)
   const sendDropToken = async () => {
     if (droptokenValue && address) {
       try {
@@ -228,7 +228,7 @@ function MainPage() {
     useTokenBalance(stakeTokenContract, address);
 
   const [{ data, error }, switchNetwork] = useNetwork();
-  
+
 
   const { contract: voteContract }: any = useContract(VOTING_CONTRACT_ADDRESS);
 
@@ -243,7 +243,7 @@ function MainPage() {
         ]);
 
         const hasVoted = await voteContract?.call("hasVoted", [
-          data[0].proposalId,address
+          data[0].proposalId, address
         ]);
         console.log(hasVoted)
 
@@ -468,7 +468,7 @@ function MainPage() {
                             style={
                               hasVoted
                                 ? { backgroundColor: "gray" }
-                                : { backgroundColor: "black" ,color:"white" }
+                                : { backgroundColor: "black", color: "white" }
                             }
                             action={() => voteAbstrain()}
                             contractAddress={VOTING_CONTRACT_ADDRESS}
@@ -521,9 +521,8 @@ function MainPage() {
                       >
                         <span className="sr-only">Type</span>
                         <span
-                          className={`${
-                            selectedNetwork ? "translate-x-8" : "translate-x-1"
-                          } inline-block h-5 w-5 transform rounded-full bg-white transition`}
+                          className={`${selectedNetwork ? "translate-x-8" : "translate-x-1"
+                            } inline-block h-5 w-5 transform rounded-full bg-white transition`}
                         />
                       </Switch>
                       <Image
@@ -637,7 +636,7 @@ function MainPage() {
                           className="text-brand-black-50 dark:text-white text-[20px] text-item rounded-md px-2 py-2	"
                           style={{ fontWeight: 400 }}
                         >
-                          Staked Jobs
+                          Staked JOBS
                         </span>
                         <span
                           className="mt-2 text-brand-black-50 dark:text-white text-[20px] text-item rounded-md px-2 py-2	"
@@ -832,7 +831,7 @@ function MainPage() {
                       </h4>
                     )}
 
-                    <div className="px-6 py-4 grid grid-cols-1 ">
+                    <div className=" py-4 grid grid-cols-1 ">
                       <div className="flex justify-center">
                         <Image
                           alt="company"
@@ -852,11 +851,10 @@ function MainPage() {
                         >
                           <span className="sr-only">Type</span>
                           <span
-                            className={`${
-                              selectedNetwork
-                                ? "translate-x-8"
-                                : "translate-x-1"
-                            } inline-block h-5 w-5 transform rounded-full bg-white transition`}
+                            className={`${selectedNetwork
+                              ? "translate-x-8"
+                              : "translate-x-1"
+                              } inline-block h-5 w-5 transform rounded-full bg-white transition`}
                           />
                         </Switch>
                         <Image
@@ -947,7 +945,7 @@ function MainPage() {
                       </div>
                       <span className="mt-10 flex justify-center text-center dark:text-white text-[green]">
                         <span className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border   dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-3">
-                          {stakeInfo && StaketokenBalance &&  stakeInfo[0]
+                          {stakeInfo && StaketokenBalance && stakeInfo[0]
                             ? (parseFloat(ethers.utils.formatEther(stakeInfo[0])) +
                               parseFloat(StaketokenBalance?.displayValue))
                             : 0}{" "}
@@ -970,7 +968,118 @@ function MainPage() {
                           community in the space today.
                         </span>
                       </span>
-                      <div className="flex justify-center">
+                      <section className="py-[10px]  bg-brand-gray-200 dark:bg-[#000000] ">
+
+                        <div className="pb-[20px] flex justify-center mt-5 ">
+                          <div className="grid  grid-cols-1 justify-center  mt-5 w-full"> {/* //md:flex md:justify-center     */}
+                            <div className=" w-[100%] justify-center  pb-[20px]  dark:bg-transparent mt-3 text-brand-blue-100 text-base  max-w-sm">
+                              <div className="text-brand-black-50 flex items-center justify-center  w-full text-center">
+                                <span className="pt-[10px] md:text-[30px] text-[20px]  text-brand-black-50 dark:text-brand-dark-50 font-medium">
+                                  JOBS Token Sale
+                                </span>
+                              </div>
+                              <div className="flex justify-center">
+                                <div className="justify-center mt-4">
+                                  <div className="flex mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-2">
+                                    <span className="text-brand-black-50 dark:text-white text-[14px] font-medium pr-2">
+                                      <Image
+                                        alt="tick"
+                                        src={'/assets/tick.svg'}
+                                        width={20}
+                                        height={20}
+                                      />
+                                    </span>
+                                    <span className="text-brand-black-50 dark:text-white text-[14px] font-medium pr-2">
+                                      Token Price:
+                                    </span>
+                                    <span className="text-brand-black-50 dark:text-white text-[14px] font-regular">
+                                      $0.20
+                                    </span>
+                                  </div>
+                                  <div className="flex mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-2">
+                                    <span className="text-brand-black-50 dark:text-white text-[14px] font-medium pr-2">
+                                      <Image
+                                        alt="tick"
+                                        src={'/assets/tick.svg'}
+                                        width={20}
+                                        height={20}
+                                      />
+                                    </span>
+                                    <span className="text-brand-black-50 dark:text-white text-[14px] font-medium pr-2">
+                                      Supply:
+                                    </span>
+                                    <span className="text-brand-black-50 dark:text-white text-[14px] font-regular">
+                                      21M (no inflation)
+                                    </span>
+                                  </div>
+                                  <div className="flex mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-2">
+                                    <span className="text-brand-black-50 dark:text-white text-[14px] font-medium pr-2">
+                                      <Image
+                                        alt="tick"
+                                        src={'/assets/tick.svg'}
+                                        width={20}
+                                        height={20}
+                                      />
+                                    </span>
+                                    <span className="text-brand-black-50  dark:text-white text-[14px] font-regular">
+                                      Stake JOBS for WORK rewards
+                                    </span>
+                                  </div>
+                                  <div className="flex mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-2">
+                                    <span className="text-brand-black-50 dark:text-white text-[14px] font-medium pr-2">
+                                      <Image
+                                        alt="tick"
+                                        src={'/assets/tick.svg'}
+                                        width={20}
+                                        height={20}
+                                      />
+                                    </span>
+                                    <span className="text-brand-black-50  dark:text-white text-[14px] font-regular">
+                                      Use JOBS to Vote on Proposals
+                                    </span>
+                                  </div>
+                                  <div className="flex mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-2">
+                                    <span className="text-brand-black-50 dark:text-white text-[14px] font-medium pr-2">
+                                      <Image
+                                        alt="tick"
+                                        src={'/assets/tick.svg'}
+                                        width={20}
+                                        height={20}
+                                      />
+                                    </span>
+                                    <span className="text-brand-black-50  dark:text-white text-[14px] font-regular">
+                                      Use JOBS to hire or get hired
+                                    </span>
+                                  </div>
+                                  <div className="flex mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-2">
+                                    <span className="text-brand-black-50 dark:text-white text-[14px] font-medium pr-2">
+                                      <Image
+                                        alt="tick"
+                                        src={'/assets/tick.svg'}
+                                        width={20}
+                                        height={20}
+                                      />
+                                    </span>
+                                    <span className="text-brand-black-50 dark:text-white text-[14px] font-regular">
+                                      Multi-chain EVM token support
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className=" justify-center bg-white dark:bg-transparent dark:border dark:border-brand-dark-100 h-[300px] w-[100%] md:w-[400px] shadow-container rounded-lg">
+                              <div className="text-brand-black-50 flex items-center justify-center  w-full text-center">
+                                <span className="pt-[10px] md:text-[30px] text-[20px]  text-brand-black-50 dark:text-brand-dark-50 font-medium">
+                                  JOBS Distribution
+                                </span>
+                              </div>
+                              <ReCharts />
+                            </div>
+                          </div>
+                        </div>
+
+                      </section>
+                      {/* <div className="flex justify-center">
                         <div className="justify-center mt-4">
                           <div className="flex justify-center mt-2 py-1 hover:bg-gradient-to-r hover:from-[#f9fafb] hover:to-[#f4f5f7] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb]  items-center  border  dark:bg-gradient-to-r dark:from-[#000000] dark:to-[#6969699c] text-base rounded-lg px-2">
                             <span className="text-brand-black-50 dark:text-white text-[14px] font-medium pr-2">
@@ -1009,7 +1118,7 @@ function MainPage() {
                             </span>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </>
                 )}
@@ -1023,7 +1132,7 @@ function MainPage() {
                         </span>
                       </div>
                       <div className="flex flex-col gap-y-5 mt-5">
-                        <div className="flex items-center shadow-xl justify-center p-5 bg-white dark:bg-transparent dark:border dark:border-brand-dark-100 h-[300px] shadow-container rounded-lg">
+                        <div className="flex items-center shadow-xl justify-center p-5 bg-white dark:bg-transparent dark:border dark:border-brand-dark-100  h-[270px] w-[100%] md:w-[400px] shadow-container rounded-lg">
                           <ReCharts />
                         </div>
                         <div className="mt-5 text-brand-black-50 flex items-center justify-center  w-full text-center">
@@ -1031,7 +1140,7 @@ function MainPage() {
                             WORK Distribution
                           </span>
                         </div>
-                        <div className="flex items-center shadow-xl justify-center p-5 pt-2 bg-white dark:bg-transparent dark:border dark:border-brand-dark-100 h-[300px] shadow-container rounded-lg">
+                        <div className="flex items-center shadow-xl justify-center p-5 pt-2 bg-white dark:bg-transparent dark:border w-[90%] dark:border-brand-dark-100 h-[320px] shadow-container rounded-lg">
                           <ReCharts2 />
                         </div>
                       </div>
