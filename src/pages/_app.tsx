@@ -39,7 +39,7 @@ export default function App({ Component, pageProps }: any) {
   return (
     <ChainContext.Provider value={{ selectedChain, setSelectedChain }}>
       <ThirdwebProvider
-        activeChain={selectedChain}
+        activeChain={selectedChain==='goerli'?BaseGoerli:Mumbai}
         clientId="c17ae4f3c142f9fb029795f0c6de71ef"
         autoConnect={true}
         supportedWallets={[
