@@ -972,7 +972,9 @@ function MainPage() {
 
                         <div className="pb-[20px] flex justify-center mt-5 ">
                           <div className="grid  grid-cols-1 justify-center  mt-5 w-full"> {/* //md:flex md:justify-center     */}
-                            <div className=" w-[100%] justify-center  pb-[20px]  dark:bg-transparent mt-3 text-brand-blue-100 text-base  max-w-sm">
+                          <div className=" w-full  justify-center flex">
+
+                            <div className=" w-full w-[100%] justify-center  pb-[20px]  dark:bg-transparent mt-3 text-brand-blue-100 text-base bg-white dark:bg-transparent w-[100%] md:w-[400px] mb-[20px] dark:border dark:border-brand-dark-100   shadow-container rounded-lg">
                               <div className="text-brand-black-50 flex items-center justify-center  w-full text-center">
                                 <span className="pt-[10px] md:text-[30px] text-[20px]  text-brand-black-50 dark:text-brand-dark-50 font-medium">
                                   JOBS Token Sale
@@ -1067,6 +1069,8 @@ function MainPage() {
                                 </div>
                               </div>
                             </div>
+                            </div>
+                            <div className=" w-full  justify-center flex">
                             <div className=" justify-center bg-white dark:bg-transparent dark:border dark:border-brand-dark-100 h-[300px] w-[100%] md:w-[400px] shadow-container rounded-lg">
                               <div className="text-brand-black-50 flex items-center justify-center  w-full text-center">
                                 <span className="pt-[10px] md:text-[30px] text-[20px]  text-brand-black-50 dark:text-brand-dark-50 font-medium">
@@ -1074,6 +1078,7 @@ function MainPage() {
                                 </span>
                               </div>
                               <ReCharts />
+                            </div>
                             </div>
                           </div>
                         </div>
